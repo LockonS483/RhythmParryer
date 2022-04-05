@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -46,6 +47,12 @@ public class Conductor : MonoBehaviour
 
     void Awake(){
         instance = this;
+        GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        GameStateManager.Instance.OnGameStateChanged -= OnGameStateChanged;
     }
 
     // Start is called before the first frame update
@@ -79,8 +86,9 @@ public class Conductor : MonoBehaviour
 
         //print("songpos: " + songPosInBeats.ToString());
 
+        //if (GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
         songPos = (float)(AudioSettings.dspTime - dspSongTime - firstBeatOffset - songPlayOffset);
-
+        
         songPosInBeats = songPos / secPerBeat;
         
         if(nextIndex < notes.Count && notes[nextIndex].y < songPosInBeats + beatsSpawned){
@@ -96,6 +104,11 @@ public class Conductor : MonoBehaviour
         if(spawnedNotes[spawnedNotesInd].beat < songPosInBeats - notePressWindow){
             spawnedNotesInd++;
         }
+
+        //UnityEngine.Debug.Log(GameStateManager.Instance.CurrentGameState);
+        //UnityEngine.Debug.Log(musicSource.isPlaying);
+        
+        
     }
 
     public float PosFromBeat(float beat){
@@ -141,4 +154,20 @@ public class Conductor : MonoBehaviour
             }
         }
     }
+
+    private void OnGameStateChanged(GameState newGameState)
+    {
+        enabled = newGameState == GameState.Gameplay;
+
+        // pause and unpause game+music
+        if (enabled) 
+            {
+                AudioListener.pause = false;
+            }
+            else 
+            {
+                AudioListener.pause = true;
+            }
+    }
+
 }
