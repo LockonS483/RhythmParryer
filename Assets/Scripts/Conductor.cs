@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class Conductor : MonoBehaviour
 {
+    public GameObject playerGO;
+    public PlayerAnims playerAnims;
+    public CameraShake camshake;
+    public AudioSource hitAudio;
+    //-------------------
     public float songBpm;  //170 for a long fall
     public float secPerBeat;
     public float firstBeatOffset;
@@ -35,6 +40,8 @@ public class Conductor : MonoBehaviour
 
     List<MusicNote> spawnedNotes;
     int spawnedNotesInd;
+    int currentTrack = 0;
+    int lastanim;
     public float notePressWindow = 0.06f;
 
     void Awake(){
@@ -61,6 +68,17 @@ public class Conductor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //moving the player
+        Vector3 playerPos = new Vector3(-5.5f, transform.position.y, 0);
+        if(currentTrack == 0){
+            playerPos.y = -2;
+        }else if (currentTrack == 1){
+            playerPos.y = 2;
+        }
+        playerGO.transform.position = Vector3.Lerp(playerGO.transform.position, playerPos, 0.75f);
+
+        //print("songpos: " + songPosInBeats.ToString());
+
         songPos = (float)(AudioSettings.dspTime - dspSongTime - firstBeatOffset - songPlayOffset);
 
         songPosInBeats = songPos / secPerBeat;
@@ -78,8 +96,6 @@ public class Conductor : MonoBehaviour
         if(spawnedNotes[spawnedNotesInd].beat < songPosInBeats - notePressWindow){
             spawnedNotesInd++;
         }
-
-        print("songpos: " + songPosInBeats.ToString());
     }
 
     public float PosFromBeat(float beat){
@@ -99,15 +115,27 @@ public class Conductor : MonoBehaviour
     }
 
     public void HitKey(int track){
+        currentTrack = track;
+        //basic animation test
+        int canim = Random.Range(0,2);
+        while(lastanim == canim){
+            canim = Random.Range(0,2);
+        }
+        lastanim = canim;
+        playerAnims.PlayAnim(lastanim);
+
         for(int i=0; i<6; i++){
             if((spawnedNotesInd+i) >= (spawnedNotes.Count)) continue;
             if(spawnedNotes[spawnedNotesInd+i] == null) continue;
 
             if(spawnedNotes[spawnedNotesInd+i].track == track){
-                print("right track: " + track.ToString());
-                print("diff: " + Mathf.Abs(spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats).ToString());
+                //print("right track: " + track.ToString());
+                //print("diff: " + Mathf.Abs(spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats).ToString());
                 if(Mathf.Abs(spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats) <= notePressWindow){
                     spawnedNotes[spawnedNotesInd+i].Hit();
+                    print("hitaccuracy: " + (spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats).ToString());
+                    camshake.AddShake();
+                    hitAudio.Play();
                     break;
                 }
             }

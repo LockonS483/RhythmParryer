@@ -31,7 +31,6 @@ public class MusicNote : MonoBehaviour
 
     public void Hit(){
         Instantiate(fxPrefab, new Vector3(endX, transform.position.y, transform.position.z), Quaternion.identity);
-        print("HIT");
         Destroy(gameObject);
     }
 }
