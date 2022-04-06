@@ -24,6 +24,7 @@ public class PauseMenu : MonoBehaviour
     public void Restart()
     {
         UnityEngine.Debug.Log("Restarting...");
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Resume()
