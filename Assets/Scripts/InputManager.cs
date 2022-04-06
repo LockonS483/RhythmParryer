@@ -15,16 +15,18 @@ public class InputManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        // Get current gamestate (in-game or paused)
+        GameState currentGameState = GameStateManager.Instance.CurrentGameState;
         for(int i=0; i<track1.Length; i++){
-            if(Input.GetKeyDown(track1[i])){
+            if(Input.GetKeyDown(track1[i]) && currentGameState == GameState.Gameplay){
                 //Debug.Log("p1");
                 Conductor.instance.HitKey(0);
             }
         }
 
         for(int i=0; i<track2.Length; i++){
-            if(Input.GetKeyDown(track2[i])){
+            if(Input.GetKeyDown(track2[i]) && currentGameState == GameState.Gameplay){
                 //Debug.Log("p2");
                 Conductor.instance.HitKey(1);
             }

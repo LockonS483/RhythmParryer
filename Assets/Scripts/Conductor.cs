@@ -48,6 +48,7 @@ public class Conductor : MonoBehaviour
     void Awake(){
         instance = this;
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
+        GameStateManager.Instance.SetState(GameState.Gameplay);
     }
 
     void OnDestroy()
