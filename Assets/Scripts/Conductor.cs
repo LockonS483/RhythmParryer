@@ -25,6 +25,8 @@ public class Conductor : MonoBehaviour
     public float beatsSpawned;
     public float songPlayOffset;
 
+    public float hitAccuracy;
+
     public static Conductor instance;
 
     public MusicNote notePrefab;
@@ -147,8 +149,8 @@ public class Conductor : MonoBehaviour
                 //print("diff: " + Mathf.Abs(spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats).ToString());
                 if(Mathf.Abs(spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats) <= notePressWindow){
                     spawnedNotes[spawnedNotesInd+i].Hit();
-                    float hitAccuracy = spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats;
-                    print("hitaccuracy: " + hitAccuracy.ToString());
+                    hitAccuracy = spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats;
+                    //print("hitaccuracy: " + hitAccuracy.ToString());
                     camshake.AddShake();
                     hitAudio.Play();
                     break;
