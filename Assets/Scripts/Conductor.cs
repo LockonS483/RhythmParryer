@@ -94,7 +94,9 @@ public class Conductor : MonoBehaviour
         
         songPosInBeats = songPos / secPerBeat;
         
+        // SPAAAAAAAAAAAAAWN NOTES
         if(nextIndex < notes.Count && notes[nextIndex].y < songPosInBeats + beatsSpawned){
+            print(spawnpoint.position + " " + Quaternion.identity);
             MusicNote m = Instantiate(notePrefab, spawnpoint.position, Quaternion.identity);
             float ty = notes[nextIndex].x == 0 ? laneY1 : laneY2;
             m.Initialize(ty, startX, endX, notes[nextIndex].y, notes[nextIndex].x);
@@ -107,11 +109,6 @@ public class Conductor : MonoBehaviour
         if(spawnedNotes[spawnedNotesInd].beat < songPosInBeats - notePressWindow){
             spawnedNotesInd++;
         }
-
-        //UnityEngine.Debug.Log(GameStateManager.Instance.CurrentGameState);
-        //UnityEngine.Debug.Log(musicSource.isPlaying);
-        
-        
     }
 
     public float PosFromBeat(float beat){

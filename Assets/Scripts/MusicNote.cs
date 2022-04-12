@@ -27,6 +27,10 @@ public class MusicNote : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(startX + (endX - startX) * (1f - (beat - Conductor.songPosInBeats)), transform.position.y, transform.position.z);
+        if(transform.position.y < endX)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Hit(){
