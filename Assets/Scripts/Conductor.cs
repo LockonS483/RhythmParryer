@@ -96,6 +96,7 @@ public class Conductor : MonoBehaviour
         
         // SPAAAAAAAAAAAAAWN NOTES
         if(nextIndex < notes.Count && notes[nextIndex].y < songPosInBeats + beatsSpawned){
+            print(spawnpoint.position + " " + Quaternion.identity);
             MusicNote m = Instantiate(notePrefab, spawnpoint.position, Quaternion.identity);
             float ty = notes[nextIndex].x == 0 ? laneY1 : laneY2;
             m.Initialize(ty, startX, endX, notes[nextIndex].y, notes[nextIndex].x);

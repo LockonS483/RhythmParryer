@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System;
 using System.Net.Mime;
 using System.Collections;
@@ -15,7 +14,6 @@ public class HitAccuracyText : MonoBehaviour
     float timer = 0.00f;
     float hitAccuracy;
     float hitAccuracy_new = 1;
-    bool textShow = true;
 
     void Start() 
     {   
@@ -23,7 +21,7 @@ public class HitAccuracyText : MonoBehaviour
         textUI.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         // Get the hitAccuracy from Conductor
         //print("debugging: " + accText);
-        hitAccuracyText.SetActive(true);
+        hitAccuracyText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,24 +48,13 @@ public class HitAccuracyText : MonoBehaviour
         else {
             accText = "";
         }
-        if (textShow == true) {
-            textUI.GetComponent<TMPro.TextMeshProUGUI>().text = accText;
-        }
+        textUI.GetComponent<TMPro.TextMeshProUGUI>().text = accText;
         if(hitAccuracy != hitAccuracy_new) {
-            textShow = true;
-            CancelInvoke("clearText");
+            timer = 0.00f;
             hitAccuracy = hitAccuracy_new;
-            Invoke("clearText", 2.0f);
-            
         }
         //print("debugging: " + hitAccuracy);
+        hitAccuracyText.SetActive(true);
         
-        
-    }
-
-    void clearText(){
-        textUI.GetComponent<TMPro.TextMeshProUGUI>().text = "";
-        accText = "";
-        textShow = false;
     }
 }
