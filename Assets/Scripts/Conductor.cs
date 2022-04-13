@@ -21,6 +21,7 @@ public class Conductor : MonoBehaviour
     public AudioSource musicSource;
 
     public List<Vector2> notes; //y is beat, x is position
+    public List<Vector3> otherNoteInfo;
     public int nextIndex;
     public float beatsSpawned;
     public float songPlayOffset;
@@ -44,6 +45,8 @@ public class Conductor : MonoBehaviour
     List<MusicNote> spawnedNotes;
     int spawnedNotesInd;
     int currentTrack = 0;
+    bool[] heldTracks= new bool[]{false, false};
+    MusicNote[] heldNotes = new MusicNote[2];
     int lastanim;
     public float notePressWindow = 0.06f;
 
@@ -99,7 +102,13 @@ public class Conductor : MonoBehaviour
             print(spawnpoint.position + " " + Quaternion.identity);
             MusicNote m = Instantiate(notePrefab, spawnpoint.position, Quaternion.identity);
             float ty = notes[nextIndex].x == 0 ? laneY1 : laneY2;
-            m.Initialize(ty, startX, endX, notes[nextIndex].y, notes[nextIndex].x);
+
+            NoteTypes nt = NoteTypes.single;
+            if(Mathf.RoundToInt(otherNoteInfo[nextIndex].x) == 1){
+                nt = NoteTypes.hold;
+            }
+
+            m.Initialize(ty, startX, endX, notes[nextIndex].y, notes[nextIndex].x, otherNoteInfo[nextIndex].y, nt);
             spawnedNotes.Add(m);
             nextIndex++;
         }
@@ -117,13 +126,23 @@ public class Conductor : MonoBehaviour
 
     void GenerateNotes(){
         notes = new List<Vector2>();
+        otherNoteInfo = new List<Vector3>();
         string fs = map.text;
         string[] maplines = fs.Split('\n');
-        for(int i=0; i<maplines.Length; i++){
+
+        for(int i=1; i<maplines.Length; i++){
             string[] nn = maplines[i].Split(' ');
             float tx = float.Parse(nn[0]);
-            float ty = float.Parse(nn[1]);
+            float ty = float.Parse(nn[2]);
             notes.Add(new Vector2(tx, ty));
+            
+            //additional info (TYPEVAL: 0 = single, HOLD = 1)
+            int typeVal = nn[1] == "SINGLE" ? 0 : 1;
+            float endBeat = 0;
+            if(typeVal == 1){
+                endBeat = float.Parse(nn[3]);
+            }
+            otherNoteInfo.Add(new Vector3(typeVal, endBeat, 0));
         }
     }
 
@@ -150,11 +169,28 @@ public class Conductor : MonoBehaviour
                     //print("hitaccuracy: " + hitAccuracy.ToString());
                     camshake.AddShake();
                     hitAudio.Play();
+                    spawnedNotes[spawnedNotesInd+i].Hit();
+                    hitAccuracy = spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats;
+                    
+                    heldTracks[track] = true;
+                    heldNotes[track] = spawnedNotes[spawnedNotesInd+i];
+                    heldNotes[track].isHeld = true;
+                    heldNotes[track].rootVisual.SetActive(false);
+
                     break;
                 }
             }
         }
     }
+
+    public void ReleaseKey(int track){
+        //currentTrack = track;
+        heldTracks[track] = false;
+        if(heldNotes[track] != null){
+            heldNotes[track].isHeld = false;
+        }
+    }
+
 
     private void OnGameStateChanged(GameState newGameState)
     {

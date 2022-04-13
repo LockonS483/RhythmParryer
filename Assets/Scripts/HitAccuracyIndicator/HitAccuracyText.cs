@@ -8,12 +8,15 @@ using UnityEngine.UI;
 public class HitAccuracyText : MonoBehaviour
 {
     public GameObject hitAccuracyText;
-    public GameObject textUI;
+    public TMPro.TextMeshProUGUI textUI;
 
     String accText;
     float timer = 0.00f;
     float hitAccuracy;
     float hitAccuracy_new = 1;
+
+    public Transform scaleTransform;
+    public float scaleFactor;
 
     void Start() 
     {   
@@ -21,13 +24,12 @@ public class HitAccuracyText : MonoBehaviour
         textUI.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         // Get the hitAccuracy from Conductor
         //print("debugging: " + accText);
-        hitAccuracyText.SetActive(false);
+        scaleTransform.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         //textUI.GetComponent<Text>().text = "yes";
         //print(textUI.GetComponent<Text>().text);
         if(hitAccuracyText.GetComponent<Conductor>().hitAccuracy != 0) {
@@ -48,13 +50,27 @@ public class HitAccuracyText : MonoBehaviour
         else {
             accText = "";
         }
-        textUI.GetComponent<TMPro.TextMeshProUGUI>().text = accText;
+        textUI.text = accText;
         if(hitAccuracy != hitAccuracy_new) {
-            timer = 0.00f;
+            timer = 1f;
             hitAccuracy = hitAccuracy_new;
         }
+        if(timer > 0){
+            timer -= Time.deltaTime * 2f;
+            scaleTransform.gameObject.SetActive(true);
+            float scaleVal = 1f + (timer * scaleFactor);//Mathf.Pow(Mathf.Clamp(timer,0,1), scaleFactor);
+            Vector3 textScale = new Vector3(scaleVal, scaleVal, 1f);
+            
+            scaleTransform.localScale = textScale;
+
+            //change alpha
+            Color color = textUI.color;
+            color.a = timer;
+            textUI.color = color;
+        }else{
+            scaleTransform.gameObject.SetActive(false);
+        }
         //print("debugging: " + hitAccuracy);
-        hitAccuracyText.SetActive(true);
         
     }
 }

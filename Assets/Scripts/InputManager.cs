@@ -22,6 +22,9 @@ public class InputManager : MonoBehaviour
             if(Input.GetKeyDown(track1[i]) && currentGameState == GameState.Gameplay){
                 //Debug.Log("p1");
                 Conductor.instance.HitKey(0);
+            }else if(Input.GetKeyUp(track1[i]) && currentGameState == GameState.Gameplay){
+                //Debug.Log("release1");
+                Conductor.instance.ReleaseKey(0);
             }
         }
 
@@ -29,6 +32,9 @@ public class InputManager : MonoBehaviour
             if(Input.GetKeyDown(track2[i]) && currentGameState == GameState.Gameplay){
                 //Debug.Log("p2");
                 Conductor.instance.HitKey(1);
+            }else if(Input.GetKeyUp(track2[i]) && currentGameState == GameState.Gameplay){
+                //Debug.Log("release2");
+                Conductor.instance.ReleaseKey(1);
             }
         }
     }
