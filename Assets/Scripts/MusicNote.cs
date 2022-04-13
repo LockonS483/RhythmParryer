@@ -47,6 +47,7 @@ public class MusicNote : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(startX + (endX - startX) * (1f - (beat - Conductor.songPosInBeats)), transform.position.y, transform.position.z);
+<<<<<<< HEAD
         if(noteType == NoteTypes.single)
         {
             if(transform.position.x < endX - 3){
@@ -78,6 +79,10 @@ public class MusicNote : MonoBehaviour
             }
             return;
         }
+=======
+        //if(transform.position.x < endX)
+        
+>>>>>>> 22af2cc8f224356588750786799f0b325c6e1cad
     }
 
     public void Hit(){
