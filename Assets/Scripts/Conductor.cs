@@ -50,6 +50,10 @@ public class Conductor : MonoBehaviour
     int lastanim;
     public float notePressWindow = 0.06f;
 
+    public int combo;
+    public int score;
+    int scoreAmnt = 100;
+
     void Awake(){
         instance = this;
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -71,6 +75,8 @@ public class Conductor : MonoBehaviour
         GenerateNotes();
         nextIndex = 0;
         spawnedNotesInd = 0;
+        score = 0;
+        combo = 0;
         Invoke("StartMusic", songPlayOffset);
     }
 
@@ -99,7 +105,7 @@ public class Conductor : MonoBehaviour
         
         // SPAAAAAAAAAAAAAWN NOTES
         if(nextIndex < notes.Count && notes[nextIndex].y < songPosInBeats + beatsSpawned){
-            print(spawnpoint.position + " " + Quaternion.identity);
+            //print(spawnpoint.position + " " + Quaternion.identity);
             MusicNote m = Instantiate(notePrefab, spawnpoint.position, Quaternion.identity);
             float ty = notes[nextIndex].x == 0 ? laneY1 : laneY2;
 
@@ -163,17 +169,36 @@ public class Conductor : MonoBehaviour
             if(spawnedNotes[spawnedNotesInd+i].track == track){
                 //print("right track: " + track.ToString());
                 //print("diff: " + Mathf.Abs(spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats).ToString());
-                if(Mathf.Abs(spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats) <= notePressWindow){
-                    spawnedNotes[spawnedNotesInd+i].Hit();
-                    hitAccuracy = spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats;
+                if (Mathf.Abs(spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats) <= notePressWindow){
+                    spawnedNotes[spawnedNotesInd + i].Hit();
+                    hitAccuracy = spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats;
+                    combo += 1;
                     //print("hitaccuracy: " + hitAccuracy.ToString());
+                    switch (hitAccuracy) {
+                        case float f when f< 0.13f:
+                            score += (int)(1 / 0.13f) * scoreAmnt;
+                            break;
+                        case float f when f< 0.2f:
+                            score += (int)(1 / 0.2f) * scoreAmnt;
+                            break;
+                        case float f when f < 0.3f:
+                            score += (int)(1 / 0.3f) * scoreAmnt;
+                            break;
+                        case float f when f < 0.4f:
+                            score += (int)(1 / 0.4f) * scoreAmnt;
+                            break;
+                        case float f when f < 0.5f:
+                            score += (int)(1 / 0.5f) * scoreAmnt;
+                            break;
+                    }
+                    print(score);
                     camshake.AddShake();
                     hitAudio.Play();
-                    spawnedNotes[spawnedNotesInd+i].Hit();
-                    hitAccuracy = spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats;
-                    
+                    spawnedNotes[spawnedNotesInd + i].Hit();
+                    hitAccuracy = spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats;
+
                     heldTracks[track] = true;
-                    heldNotes[track] = spawnedNotes[spawnedNotesInd+i];
+                    heldNotes[track] = spawnedNotes[spawnedNotesInd + i];
                     heldNotes[track].isHeld = true;
                     heldNotes[track].rootVisual.SetActive(false);
 

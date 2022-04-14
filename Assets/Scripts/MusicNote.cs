@@ -51,6 +51,8 @@ public class MusicNote : MonoBehaviour
         if(noteType == NoteTypes.single)
         {
             if(transform.position.x < endX - 3){
+                // miss if beyond the end (same done for hold note start)
+                GameObject.Find("Manager").GetComponent<Conductor>().hitAccuracy = 0.45f;
                 Destroy(gameObject);
             }
             return;
@@ -71,6 +73,7 @@ public class MusicNote : MonoBehaviour
                 if(isHeld){
                     //currently being held?
                 }else{
+                    //GameObject.Find("Manager").GetComponent<Conductor>().hitAccuracy = 1;
                     Destroy(gameObject);
                 }
             }
