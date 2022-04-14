@@ -11,7 +11,7 @@ public class Conductor : MonoBehaviour
     public CameraShake camshake;
     public AudioSource hitAudio;
     public GameObject recorder;
-    Recorder rStats;
+    public Recorder rStats;
     //-------------------
     public float songBpm;  //170 for a long fall
     public float secPerBeat;
