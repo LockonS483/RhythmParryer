@@ -7,18 +7,31 @@ using TMPro;
 
 public class EndScene : MonoBehaviour
 {
-    // public GameObject UI;
-    // [SerializeField]
-    //  public TextMeshPro perfect_count;
      public Text perfect_count;
      public Text great_count;
      public Text max_combo;
      public Text accuracy;
      public Text score;
-     
+    public GameObject endSceneUI;
+
+    // Update is called once per frame
+    void Update()
+    {
+        GameState currentGameState = GameStateManager.Instance.CurrentGameState;
+        if (currentGameState == GameState.Gameplay)
+        {
+            endSceneUI.SetActive(false);
+        }
+        else 
+        {
+            endSceneUI.SetActive(true);
+        }
+    }    
     // Start is called before the first frame update
     void Start()
     {
+        endSceneUI = GameObject.Find("Canvas");
+
         //0:perfect, 1:great, 2:ok, 3:bad, 4:miss
         perfect_count.text = "# of Perfect: " + Conductor.instance.rStats.hitCounts[0].ToString();
         great_count.text = "# of Great: " + Conductor.instance.rStats.hitCounts[1].ToString();
