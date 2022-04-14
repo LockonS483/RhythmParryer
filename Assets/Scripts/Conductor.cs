@@ -55,7 +55,8 @@ public class Conductor : MonoBehaviour
     public int combo;
     public int score;
     int scoreAmnt = 100;
-
+    float endTimer = 2.0f;
+    float endMarker;
     void Awake(){
         instance = this;
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -122,12 +123,25 @@ public class Conductor : MonoBehaviour
             spawnedNotes.Add(m);
             nextIndex++;
         }
+        print(musicSource.time);
+        if (musicSource.time<=0 && spawnedNotes.Count>0) {
+            if (endTimer > 0)
+            {
+                endTimer -= Time.deltaTime;
+            }
+            else {
+                GameObject.Find("EndScene").GetComponent<Canvas>().enabled = true;
+            }
+        }
 
-        if(spawnedNotes.Count < 1 || spawnedNotesInd >= spawnedNotes.Count) return;
+        if (spawnedNotes.Count < 1 || spawnedNotesInd >= spawnedNotes.Count) {
+            return;
+        }
 
         if(spawnedNotes[spawnedNotesInd].beat < songPosInBeats - notePressWindow){
             spawnedNotesInd++;
         }
+        
     }
 
     public float PosFromBeat(float beat){
@@ -139,7 +153,9 @@ public class Conductor : MonoBehaviour
         otherNoteInfo = new List<Vector3>();
         string fs = map.text;
         string[] maplines = fs.Split('\n');
-
+        var metadata = maplines[0].Split(' ');
+        endMarker = float.Parse(metadata[2]);
+        print(endMarker);
         for(int i=1; i<maplines.Length; i++){
             string[] nn = maplines[i].Split(' ');
             float tx = float.Parse(nn[0]);
