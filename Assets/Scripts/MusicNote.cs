@@ -47,12 +47,13 @@ public class MusicNote : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(startX + (endX - startX) * (1f - (beat - Conductor.songPosInBeats)), transform.position.y, transform.position.z);
-        
-        if(noteType == NoteTypes.single)
+        var c = GameObject.Find("Manager").GetComponent<Conductor>();
+        if (noteType == NoteTypes.single)
         {
             if(transform.position.x < endX - 3){
                 // miss if beyond the end (same done for hold note start)
-                GameObject.Find("Manager").GetComponent<Conductor>().hitAccuracy = 0.45f;
+                c.hitAccuracy = 0.45f;
+                c.rStats.hitCounts[4] += 1;
                 Destroy(gameObject);
             }
             return;
@@ -74,6 +75,7 @@ public class MusicNote : MonoBehaviour
                     //currently being held?
                 }else{
                     //GameObject.Find("Manager").GetComponent<Conductor>().hitAccuracy = 1;
+                    c.rStats.hitCounts[4] += 1;
                     Destroy(gameObject);
                 }
             }
