@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class HitAccuracyText : MonoBehaviour
 {
-    public GameObject hitAccuracyText;
+    public GameObject Manager;
     public TMPro.TextMeshProUGUI textUI;
     public TMPro.TextMeshProUGUI comboText;
     public TMPro.TextMeshProUGUI scoreText;
@@ -16,6 +16,7 @@ public class HitAccuracyText : MonoBehaviour
     String accText;
     float timer = 1.00f;
     float hitAccuracy;
+    float hitAccuracy_prev;
     float hitAccuracy_new = 1;
     public Transform scaleTransform;
     public float scaleFactor;
@@ -24,7 +25,7 @@ public class HitAccuracyText : MonoBehaviour
     {   
         // Get the text in the TextUI object
         textUI.GetComponent<TMPro.TextMeshProUGUI>().text = "";
-        cond = GameObject.Find("Manager").GetComponent<Conductor>();
+        cond = Manager.GetComponent<Conductor>();
         // Get the hitAccuracy from Conductor
         //print("debugging: " + accText);
         scaleTransform.gameObject.SetActive(false);
@@ -35,8 +36,9 @@ public class HitAccuracyText : MonoBehaviour
     {
         //textUI.GetComponent<Text>().text = "yes";
         //print(textUI.GetComponent<Text>().text);
-        if (hitAccuracyText.GetComponent<Conductor>().hitAccuracy != 0) {
-            hitAccuracy_new = hitAccuracyText.GetComponent<Conductor>().hitAccuracy;
+        hitAccuracy = Manager.GetComponent<Conductor>().hitAccuracy;
+        if (hitAccuracy != 0) {
+            hitAccuracy_new = hitAccuracy;
         }
         if (hitAccuracy_new < 0.13)
         {
@@ -69,8 +71,8 @@ public class HitAccuracyText : MonoBehaviour
         textUI.text = accText;
         comboText.text = "" + cond.combo;
         scoreText.text = "" + cond.score;
-        if (hitAccuracy != hitAccuracy_new){
-            hitAccuracy = hitAccuracy_new;
+        if (hitAccuracy_prev != hitAccuracy_new){
+            hitAccuracy_prev = hitAccuracy_new;
             timer = 1f;
         }
         
