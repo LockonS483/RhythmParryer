@@ -218,11 +218,7 @@ public class Conductor : MonoBehaviour
                             rStats.hitCounts[3] += 1;
                             break;
                     }
-<<<<<<< Updated upstream
-                    print(score);
-=======
                     UnityEngine.Debug.LogFormat("{0} {1} {2} {3} {4}", rStats.hitCounts[0], rStats.hitCounts[1], rStats.hitCounts[2], rStats.hitCounts[3], rStats.hitCounts[4]);
->>>>>>> Stashed changes
                     rStats.score = score;
                     camshake.AddShake();
                     hitAudio.Play();
