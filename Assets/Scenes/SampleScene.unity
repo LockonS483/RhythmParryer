@@ -3052,7 +3052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f30faf1346bb54b8ee1f95b26fec06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitAccuracyText: {fileID: 272232599}
+  Manager: {fileID: 272232599}
   textUI: {fileID: 1375293189}
   comboText: {fileID: 263865235}
   scoreText: {fileID: 416703768}
