@@ -123,7 +123,7 @@ public class Conductor : MonoBehaviour
             spawnedNotes.Add(m);
             nextIndex++;
         }
-        print(musicSource.time);
+        //print(musicSource.time);
         if (musicSource.time<=0 && spawnedNotes.Count>0) {
             if (endTimer > 0)
             {
@@ -155,18 +155,20 @@ public class Conductor : MonoBehaviour
         string[] maplines = fs.Split('\n');
         var metadata = maplines[0].Split(' ');
         endMarker = float.Parse(metadata[2]);
-        print(endMarker);
+        //print(endMarker);
+        float offset = float.Parse(metadata[1]);
         for(int i=1; i<maplines.Length; i++){
             string[] nn = maplines[i].Split(' ');
             float tx = float.Parse(nn[0]);
-            float ty = float.Parse(nn[2]);
+            float ty = float.Parse(nn[2]) + offset;
+            print(tx + " " + ty);
             notes.Add(new Vector2(tx, ty));
             
             //additional info (TYPEVAL: 0 = single, HOLD = 1)
             int typeVal = nn[1] == "SINGLE" ? 0 : 1;
             float endBeat = 0;
             if(typeVal == 1){
-                endBeat = float.Parse(nn[3]);
+                endBeat = float.Parse(nn[3]) + offset;
             }
             otherNoteInfo.Add(new Vector3(typeVal, endBeat, 0));
         }
@@ -218,7 +220,7 @@ public class Conductor : MonoBehaviour
                             rStats.hitCounts[4] += 1;
                             break;
                     }
-                    print(score);
+                    //print(score);
                     rStats.score = score;
                     camshake.AddShake();
                     hitAudio.Play();

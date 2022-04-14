@@ -1230,7 +1230,7 @@ MonoBehaviour:
   rStats: {fileID: 0}
   songBpm: 83
   secPerBeat: 0
-  firstBeatOffset: 1.3
+  firstBeatOffset: 0
   dspSongTime: 0
   musicSource: {fileID: 272232600}
   notes: []
