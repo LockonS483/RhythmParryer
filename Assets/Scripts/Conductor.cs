@@ -10,6 +10,8 @@ public class Conductor : MonoBehaviour
     public PlayerAnims playerAnims;
     public CameraShake camshake;
     public AudioSource hitAudio;
+    public GameObject recorder;
+    Recorder rStats;
     //-------------------
     public float songBpm;  //170 for a long fall
     public float secPerBeat;
@@ -58,6 +60,8 @@ public class Conductor : MonoBehaviour
         instance = this;
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
         GameStateManager.Instance.SetState(GameState.Gameplay);
+        var rObj = Instantiate(recorder);
+        rStats = rObj.GetComponent<Recorder>();
     }
 
     void OnDestroy()
@@ -173,25 +177,33 @@ public class Conductor : MonoBehaviour
                     spawnedNotes[spawnedNotesInd + i].Hit();
                     hitAccuracy = spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats;
                     combo += 1;
+                    if (combo > rStats.highestCombo)
+                        rStats.highestCombo = combo;
                     //print("hitaccuracy: " + hitAccuracy.ToString());
                     switch (hitAccuracy) {
                         case float f when f< 0.13f:
                             score += (int)(1 / 0.13f) * scoreAmnt;
+                            rStats.hitCounts[0] += 1;
                             break;
                         case float f when f< 0.2f:
                             score += (int)(1 / 0.2f) * scoreAmnt;
+                            rStats.hitCounts[1] += 1;
                             break;
                         case float f when f < 0.3f:
                             score += (int)(1 / 0.3f) * scoreAmnt;
+                            rStats.hitCounts[2] += 1;
                             break;
                         case float f when f < 0.4f:
                             score += (int)(1 / 0.4f) * scoreAmnt;
+                            rStats.hitCounts[3] += 1;
                             break;
                         case float f when f < 0.5f:
                             score += (int)(1 / 0.5f) * scoreAmnt;
+                            rStats.hitCounts[4] += 1;
                             break;
                     }
                     print(score);
+                    rStats.score = score;
                     camshake.AddShake();
                     hitAudio.Play();
                     spawnedNotes[spawnedNotesInd + i].Hit();

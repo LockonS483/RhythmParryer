@@ -688,7 +688,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1f1903c0e7ab48043a9170c7cd43fab6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: eafcc96c94c860a4f87246b50dd53a18, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.05
   m_Pitch: 1
@@ -807,9 +807,10 @@ MonoBehaviour:
   playerAnims: {fileID: 1167056529}
   camshake: {fileID: 272232604}
   hitAudio: {fileID: 963208501}
-  songBpm: 170
+  recorder: {fileID: 5822984255081779844, guid: 84957d65549f31b4993127dba859a4b7, type: 3}
+  songBpm: 83
   secPerBeat: 0
-  firstBeatOffset: 0.19
+  firstBeatOffset: 1.3
   dspSongTime: 0
   musicSource: {fileID: 272232600}
   notes: []
@@ -823,7 +824,7 @@ MonoBehaviour:
   laneY2: 2
   startX: 0
   endX: -5
-  map: {fileID: 4900000, guid: dd35857a303691f46b9208ec707ac6f5, type: 3}
+  map: {fileID: 4900000, guid: 20138e2e31d231a4da58fd677dc79099, type: 3}
   spawnpoint: {fileID: 1094896439}
   notePressWindow: 0.4
   combo: 0
@@ -1825,7 +1826,7 @@ MonoBehaviour:
   hitAccuracyText: {fileID: 272232599}
   textUI: {fileID: 1375293189}
   comboText: {fileID: 263865235}
-  cond: {fileID: 0}
+  scoreText: {fileID: 416703768}
   scaleTransform: {fileID: 2012177457}
   scaleFactor: 1
 --- !u!114 &1343679544
