@@ -200,27 +200,27 @@ public class Conductor : MonoBehaviour
                     //print("hitaccuracy: " + hitAccuracy.ToString());
                     switch (hitAccuracy) {
                         case float f when f< 0.13f:
+                            //Perfect case
                             score += (int)(1 / 0.13f) * scoreAmnt;
                             rStats.hitCounts[0] += 1;
                             break;
                         case float f when f< 0.2f:
+                            //Great case
                             score += (int)(1 / 0.2f) * scoreAmnt;
                             rStats.hitCounts[1] += 1;
                             break;
                         case float f when f < 0.3f:
+                            //Ok case
                             score += (int)(1 / 0.3f) * scoreAmnt;
                             rStats.hitCounts[2] += 1;
                             break;
                         case float f when f < 0.4f:
+                            //Bad case
                             score += (int)(1 / 0.4f) * scoreAmnt;
                             rStats.hitCounts[3] += 1;
                             break;
-                        case float f when f < 0.5f:
-                            score += (int)(1 / 0.5f) * scoreAmnt;
-                            rStats.hitCounts[4] += 1;
-                            break;
                     }
-                    //print(score);
+                    UnityEngine.Debug.LogFormat("{0} {1} {2} {3} {4}", rStats.hitCounts[0], rStats.hitCounts[1], rStats.hitCounts[2], rStats.hitCounts[3], rStats.hitCounts[4]);
                     rStats.score = score;
                     camshake.AddShake();
                     hitAudio.Play();
