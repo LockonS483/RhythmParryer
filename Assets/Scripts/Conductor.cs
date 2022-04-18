@@ -1,8 +1,10 @@
+using System.Resources;
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEditor;
 
 public class Conductor : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class Conductor : MonoBehaviour
     public AudioSource hitAudio;
     public GameObject recorder;
     public Recorder rStats;
+    public StageController sController;
     //-------------------
     public float songBpm;  //170 for a long fall
     public float secPerBeat;
@@ -32,6 +35,7 @@ public class Conductor : MonoBehaviour
 
     public static Conductor instance;
 
+
     public MusicNote notePrefab;
 
     public float laneY1;
@@ -40,7 +44,7 @@ public class Conductor : MonoBehaviour
     public float endX;
 
 
-    public TextAsset map;
+    public string map;
     public Transform spawnpoint;
 
 
@@ -73,16 +77,29 @@ public class Conductor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        musicSource = GetComponent<AudioSource>();
+        print(StageController.musicClip);
+        if (!StageController.musicClip) {
+            //AudioSource musicSource = gameObject.AddComponent <AudioSource>() as AudioSource;
+            AudioClip audioClip = Resources.Load<AudioClip>("Music/close-in-the-distance"); // change name to testaudio for quick debugging
+            musicSource.clip = audioClip;
+        } else {
+            //AudioSource musicSource = gameObject.AddComponent <AudioSource>() as AudioSource;
+            AudioClip audioClip = StageController.musicClip;
+            musicSource.clip = audioClip;
+        }
+        print(musicSource);
         secPerBeat = 60f / songBpm;
         dspSongTime = (float)AudioSettings.dspTime;
         spawnedNotes = new List<MusicNote>();
+        map = StageController.map;
+        print(map);
         GenerateNotes();
         nextIndex = 0;
         spawnedNotesInd = 0;
         score = 0;
         combo = 0;
         Invoke("StartMusic", songPlayOffset);
+        
     }
 
     void StartMusic(){
@@ -151,7 +168,7 @@ public class Conductor : MonoBehaviour
     void GenerateNotes(){
         notes = new List<Vector2>();
         otherNoteInfo = new List<Vector3>();
-        string fs = map.text;
+        string fs = map;
         string[] maplines = fs.Split('\n');
         var metadata = maplines[0].Split(' ');
         endMarker = float.Parse(metadata[2]);
@@ -161,7 +178,7 @@ public class Conductor : MonoBehaviour
             string[] nn = maplines[i].Split(' ');
             float tx = float.Parse(nn[0]);
             float ty = float.Parse(nn[2]) + offset;
-            print(tx + " " + ty);
+            //print(tx + " " + ty);
             notes.Add(new Vector2(tx, ty));
             
             //additional info (TYPEVAL: 0 = single, HOLD = 1)

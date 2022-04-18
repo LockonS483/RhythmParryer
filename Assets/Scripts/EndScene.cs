@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 using UnityEngine.SceneManagement;
+using System.IO;
 using TMPro;
 
 // <a href="https://www.freepik.com/vectors/hex-background">Hex background vector created by coolvector - www.freepik.com</a>
@@ -17,6 +19,10 @@ public class EndScene : MonoBehaviour
      public Text accuracy;
      public Text score;
     public GameObject endSceneUI;
+    public GameObject Manager;
+
+    string next_map_path = "Assets/Maps/NewTest.txt";
+    string next_song_path = "Music/THE-PRIMALS";
 
     // Update is called once per frame
     
@@ -46,8 +52,13 @@ public class EndScene : MonoBehaviour
     }
     public void NextScene()
     {
-        print("herpaderp");
-        // SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        string map = File.ReadAllText(next_map_path);
+        StageController.map = map;
+
+        AudioClip audioClip = Resources.Load<AudioClip>(next_song_path);
+        StageController.musicClip = audioClip;
+        
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         //GameStateManager.Instance.SetState(GameState.Gameplay);
     }
     public void Resume()
