@@ -88,12 +88,13 @@ public class Conductor : MonoBehaviour
             musicSource.clip = audioClip;
         }
         print(musicSource);
-        secPerBeat = 60f / songBpm;
+        
         dspSongTime = (float)AudioSettings.dspTime;
         spawnedNotes = new List<MusicNote>();
         map = StageController.map;
         print(map);
         GenerateNotes();
+        secPerBeat = 60f / songBpm;
         nextIndex = 0;
         spawnedNotesInd = 0;
         score = 0;
@@ -171,9 +172,14 @@ public class Conductor : MonoBehaviour
         string fs = map;
         string[] maplines = fs.Split('\n');
         var metadata = maplines[0].Split(' ');
+        print(metadata[0] + " " + metadata[1] + " " + metadata[2]);
+        songBpm = float.Parse(metadata[0].Substring(1));
+        
+        print("songBpm:" + songBpm);
         endMarker = float.Parse(metadata[2]);
         //print(endMarker);
         float offset = float.Parse(metadata[1]);
+        print("songOffset:" + offset);
         for(int i=1; i<maplines.Length; i++){
             string[] nn = maplines[i].Split(' ');
             float tx = float.Parse(nn[0]);
