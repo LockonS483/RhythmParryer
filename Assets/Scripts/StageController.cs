@@ -7,7 +7,8 @@ using System.IO;
 
 public class StageController : MonoBehaviour
 {
-    public static string map = File.ReadAllText("Assets/Maps/close-in-the-distance.txt");
+    //public static string map = File.ReadAllText("Assets/Maps/close-in-the-distance.txt");
+    public static string map = File.ReadAllText("Assets/Maps/HAZARDO.txt");
 
     
     public static AudioClip musicClip;

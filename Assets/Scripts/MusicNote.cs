@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum NoteTypes
 {
-    single, hold
+    single, hold, hazard
 }
 
 public class MusicNote : MonoBehaviour
@@ -52,8 +52,8 @@ public class MusicNote : MonoBehaviour
         {
             if(transform.position.x < endX - 3){
                 // miss if beyond the end (same done for hold note start)
-                c.hitAccuracy = 0.45f;
-                c.rStats.hitCounts[4] += 1;
+                Conductor.instance.hitAccuracy = 0.45f;
+                Conductor.instance.rStats.hitCounts[4] += 1;
                 Destroy(gameObject);
             }
             return;
@@ -80,6 +80,15 @@ public class MusicNote : MonoBehaviour
                 }
             }
             if(Conductor.songPosInBeats >= endBeat){
+                Destroy(gameObject);
+            }
+            return;
+        }
+        if(noteType == NoteTypes.hazard){
+            if(transform.position.x < endX - 3){
+                // miss if beyond the end (same done for hold note start)
+                Conductor.instance.hitAccuracy = 0.45f;
+                Conductor.instance.rStats.hitCounts[4] += 1;
                 Destroy(gameObject);
             }
             return;

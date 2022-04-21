@@ -1241,6 +1241,7 @@ MonoBehaviour:
   songPlayOffset: 4
   hitAccuracy: 0
   notePrefab: {fileID: -6611712420343434987, guid: 9df5937555588044f80f61c49e219088, type: 3}
+  hazardPrefab: {fileID: 1958296294184733946, guid: f9085137c35eefe4a84a958157a8246b, type: 3}
   laneY1: -2
   laneY2: 2
   startX: 0

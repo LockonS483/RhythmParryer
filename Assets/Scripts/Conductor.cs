@@ -37,6 +37,7 @@ public class Conductor : MonoBehaviour
 
 
     public MusicNote notePrefab;
+    public MusicNote hazardPrefab;
 
     public float laneY1;
     public float laneY2;
@@ -129,7 +130,12 @@ public class Conductor : MonoBehaviour
         // SPAAAAAAAAAAAAAWN NOTES
         if(nextIndex < notes.Count && notes[nextIndex].y < songPosInBeats + beatsSpawned){
             //print(spawnpoint.position + " " + Quaternion.identity);
-            MusicNote m = Instantiate(notePrefab, spawnpoint.position, Quaternion.identity);
+            MusicNote m;
+            if(Mathf.RoundToInt(otherNoteInfo[nextIndex].x) == 0 || Mathf.RoundToInt(otherNoteInfo[nextIndex].x) == 1){ //Note is not a hazard
+                m = Instantiate(notePrefab, spawnpoint.position, Quaternion.identity);
+            }else{ // note is a hazard
+                m = Instantiate(hazardPrefab, spawnpoint.position, Quaternion.identity);
+            }
             float ty = notes[nextIndex].x == 0 ? laneY1 : laneY2;
 
             NoteTypes nt = NoteTypes.single;
@@ -162,7 +168,7 @@ public class Conductor : MonoBehaviour
         
     }
 
-    public float PosFromBeat(float beat){
+    public float PosFromBeat(float beat){ //I actually don't know what this does but it is never called. Leaving this in just because
         return (float)(AudioSettings.dspTime - dspSongTime - firstBeatOffset);
     }
 
@@ -187,8 +193,15 @@ public class Conductor : MonoBehaviour
             //print(tx + " " + ty);
             notes.Add(new Vector2(tx, ty));
             
-            //additional info (TYPEVAL: 0 = single, HOLD = 1)
-            int typeVal = nn[1] == "SINGLE" ? 0 : 1;
+            //additional info (TYPEVAL: 0 = single, HOLD = 1, HAZARD = 2)
+            int typeVal = 0;
+            if(nn[1] == "SINGLE"){
+                typeVal = 0;
+            }else if(nn[1] == "HOLD"){
+                typeVal = 1;
+            }else if(nn[1] == "HAZARD"){
+                typeVal = 2;
+            }
             float endBeat = 0;
             if(typeVal == 1){
                 endBeat = float.Parse(nn[3]) + offset;
