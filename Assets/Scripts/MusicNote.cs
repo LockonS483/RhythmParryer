@@ -92,8 +92,8 @@ public class MusicNote : MonoBehaviour
                 if (c.playerGO.transform.position.y == transform.position.y) {
                     Conductor.instance.hitAccuracy = 0.45f;
                     Conductor.instance.rStats.hitCounts[4] += 1;
-                    Destroy(gameObject);
                 }
+                Destroy(gameObject);
             }
             return;
         }

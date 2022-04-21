@@ -35,7 +35,7 @@ public class EndScene : MonoBehaviour
             bad_count.text = "Bad: " + Conductor.instance.rStats.hitCounts[3].ToString();
             miss_count.text = "Miss: " + Conductor.instance.rStats.hitCounts[4].ToString();
             score.text = "Score: " + Conductor.instance.score.ToString();
-            accuracy.text = "Accuracy: " + Conductor.instance.hitAccuracy.ToString(); // accuracy
+            accuracy.text = ""; /*+ Conductor.instance.hitAccuracy.ToString(); // accuracy*/
             max_combo.text = "Maximum Combo: " + Conductor.instance.rStats.highestCombo.ToString(); // max combo
         }
     }    
@@ -52,13 +52,14 @@ public class EndScene : MonoBehaviour
     }
     public void NextScene()
     {
-        string map = File.ReadAllText(next_map_path);
+        /*string map = File.ReadAllText(next_map_path);
         StageController.map = map;
 
         AudioClip audioClip = Resources.Load<AudioClip>(next_song_path);
         StageController.musicClip = audioClip;
-        
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        */
+        if(SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings)
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex+1);
         //GameStateManager.Instance.SetState(GameState.Gameplay);
     }
     public void Resume()
