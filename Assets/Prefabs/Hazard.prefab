@@ -53,7 +53,7 @@ MonoBehaviour:
   fxPrefab: {fileID: 742684737121871269, guid: 63e2e8e57f6b22b4db88d34eabd1a761, type: 3}
   noteType: 0
   isHeld: 0
-  rootVisual: {fileID: 0}
+  rootVisual: {fileID: 7586428971244957142}
 --- !u!1 &7586428971244957142
 GameObject:
   m_ObjectHideFlags: 0
