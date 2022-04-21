@@ -26,7 +26,7 @@ public class MusicNote : MonoBehaviour
     LineRenderer lr;
 
     public GameObject rootVisual;
-
+    public Conductor c;
     public void Initialize(float posY, float sX, float removeX, float beat, float track, float eBeat, NoteTypes nt){
         this.startY = posY;
         this.startX = sX;
@@ -35,19 +35,21 @@ public class MusicNote : MonoBehaviour
         this.track = Mathf.RoundToInt(track);
         this.endBeat = eBeat;
         this.noteType = nt;
-
+        
         transform.position = new Vector3(transform.position.x, startY, transform.position.z);
         if(noteType == NoteTypes.hold){
             lr = GetComponent<LineRenderer>();
             lr.enabled = true;
         }
+
+        c = GameObject.Find("Manager").GetComponent<Conductor>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position = new Vector3(startX + (endX - startX) * (1f - (beat - Conductor.songPosInBeats)), transform.position.y, transform.position.z);
-        var c = GameObject.Find("Manager").GetComponent<Conductor>();
         if (noteType == NoteTypes.single)
         {
             if(transform.position.x < endX - 3){
@@ -87,9 +89,11 @@ public class MusicNote : MonoBehaviour
         if(noteType == NoteTypes.hazard){
             if(transform.position.x < endX - 3){
                 // miss if beyond the end (same done for hold note start)
-                Conductor.instance.hitAccuracy = 0.45f;
-                Conductor.instance.rStats.hitCounts[4] += 1;
-                Destroy(gameObject);
+                if (c.playerGO.transform.position.y == transform.position.y) {
+                    Conductor.instance.hitAccuracy = 0.45f;
+                    Conductor.instance.rStats.hitCounts[4] += 1;
+                    Destroy(gameObject);
+                }
             }
             return;
         }

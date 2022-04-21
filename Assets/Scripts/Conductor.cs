@@ -62,6 +62,7 @@ public class Conductor : MonoBehaviour
     int scoreAmnt = 100;
     float endTimer = 2.0f;
     float endMarker;
+    float hzMod = 1; // modifier for hitting hazards
     void Awake(){
         instance = this;
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -234,25 +235,29 @@ public class Conductor : MonoBehaviour
                     if (combo > rStats.highestCombo)
                         rStats.highestCombo = combo;
                     //print("hitaccuracy: " + hitAccuracy.ToString());
+                    if (spawnedNotes[spawnedNotesInd + i].noteType == NoteTypes.hazard)
+                        hzMod = 1.5f;
+                    else
+                        hzMod = 1;
                     switch (hitAccuracy) {
                         case float f when f< 0.13f:
                             //Perfect case
-                            score += (int)(1 / 0.13f) * scoreAmnt;
+                            score += (int)((1 / 0.13f) * (scoreAmnt*hzMod));
                             rStats.hitCounts[0] += 1;
                             break;
                         case float f when f< 0.2f:
                             //Great case
-                            score += (int)(1 / 0.2f) * scoreAmnt;
+                            score += (int)((1 / 0.2f) * (scoreAmnt*hzMod));
                             rStats.hitCounts[1] += 1;
                             break;
                         case float f when f < 0.3f:
                             //Ok case
-                            score += (int)(1 / 0.3f) * scoreAmnt;
+                            score += (int)((1 / 0.3f) * (scoreAmnt * hzMod));
                             rStats.hitCounts[2] += 1;
                             break;
                         case float f when f < 0.4f:
                             //Bad case
-                            score += (int)(1 / 0.4f) * scoreAmnt;
+                            score += (int)((1 / 0.4f) * (scoreAmnt * hzMod));
                             rStats.hitCounts[3] += 1;
                             break;
                     }
