@@ -131,17 +131,18 @@ public class Conductor : MonoBehaviour
         if(nextIndex < notes.Count && notes[nextIndex].y < songPosInBeats + beatsSpawned){
             //print(spawnpoint.position + " " + Quaternion.identity);
             MusicNote m;
+            NoteTypes nt = NoteTypes.single;
             if(Mathf.RoundToInt(otherNoteInfo[nextIndex].x) == 0 || Mathf.RoundToInt(otherNoteInfo[nextIndex].x) == 1){ //Note is not a hazard
                 m = Instantiate(notePrefab, spawnpoint.position, Quaternion.identity);
+                if(Mathf.RoundToInt(otherNoteInfo[nextIndex].x) == 1){
+                    nt = NoteTypes.hold;
+                }
             }else{ // note is a hazard
                 m = Instantiate(hazardPrefab, spawnpoint.position, Quaternion.identity);
+                nt = NoteTypes.hazard;
             }
-            float ty = notes[nextIndex].x == 0 ? laneY1 : laneY2;
 
-            NoteTypes nt = NoteTypes.single;
-            if(Mathf.RoundToInt(otherNoteInfo[nextIndex].x) == 1){
-                nt = NoteTypes.hold;
-            }
+            float ty = notes[nextIndex].x == 0 ? laneY1 : laneY2;
 
             m.Initialize(ty, startX, endX, notes[nextIndex].y, notes[nextIndex].x, otherNoteInfo[nextIndex].y, nt);
             spawnedNotes.Add(m);
@@ -195,17 +196,16 @@ public class Conductor : MonoBehaviour
             
             //additional info (TYPEVAL: 0 = single, HOLD = 1, HAZARD = 2)
             int typeVal = 0;
+            float endBeat = 0;
             if(nn[1] == "SINGLE"){
                 typeVal = 0;
-            }else if(nn[1] == "HOLD"){
+            }else if(nn[1] == "HELD"){
                 typeVal = 1;
+                endBeat = float.Parse(nn[3]) + offset;
             }else if(nn[1] == "HAZARD"){
                 typeVal = 2;
             }
-            float endBeat = 0;
-            if(typeVal == 1){
-                endBeat = float.Parse(nn[3]) + offset;
-            }
+
             otherNoteInfo.Add(new Vector3(typeVal, endBeat, 0));
         }
     }

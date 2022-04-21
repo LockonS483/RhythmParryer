@@ -98,7 +98,7 @@ public class MusicNote : MonoBehaviour
     public void Hit(){
         Instantiate(fxPrefab, new Vector3(endX, transform.position.y, transform.position.z), Quaternion.identity);
 
-        if(noteType == NoteTypes.single)
+        if(noteType == NoteTypes.single || noteType == NoteTypes.hazard)
             Destroy(gameObject);
     }
 }
