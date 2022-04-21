@@ -35,7 +35,7 @@ public class PauseMenu : MonoBehaviour
     public void Exit()
     {   
         UnityEngine.Debug.Log("Quitting...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(0);
         
     }
 

@@ -45,7 +45,7 @@ public class Conductor : MonoBehaviour
     public float endX;
 
 
-    public string map;
+    public TextAsset map;
     public Transform spawnpoint;
 
 
@@ -78,7 +78,7 @@ public class Conductor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print(StageController.musicClip);
+        /*print(StageController.musicClip);
         if (!StageController.musicClip) {
             //AudioSource musicSource = gameObject.AddComponent <AudioSource>() as AudioSource;
             AudioClip audioClip = Resources.Load<AudioClip>("Music/close-in-the-distance"); // change name to testaudio for quick debugging
@@ -87,13 +87,13 @@ public class Conductor : MonoBehaviour
             //AudioSource musicSource = gameObject.AddComponent <AudioSource>() as AudioSource;
             AudioClip audioClip = StageController.musicClip;
             musicSource.clip = audioClip;
-        }
+        }*/
+
         print(musicSource);
         
         dspSongTime = (float)AudioSettings.dspTime;
         spawnedNotes = new List<MusicNote>();
-        map = StageController.map;
-        print(map);
+        
         GenerateNotes();
         secPerBeat = 60f / songBpm;
         nextIndex = 0;
@@ -175,7 +175,7 @@ public class Conductor : MonoBehaviour
     void GenerateNotes(){
         notes = new List<Vector2>();
         otherNoteInfo = new List<Vector3>();
-        string fs = map;
+        string fs = map.text;
         string[] maplines = fs.Split('\n');
         var metadata = maplines[0].Split(' ');
         print(metadata[0] + " " + metadata[1] + " " + metadata[2]);

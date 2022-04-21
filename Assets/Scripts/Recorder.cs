@@ -10,7 +10,7 @@ public class Recorder : MonoBehaviour
     public int highestCombo;
     void Awake()
     {
-        Object.DontDestroyOnLoad(this); //:)        
+        /*Object.DontDestroyOnLoad(this); //:)*/        
     }
 
 }

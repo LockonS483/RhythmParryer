@@ -21,15 +21,6 @@ public class MainMenu : MonoBehaviour
     }
 
     public void StartStage2() {
-        next_map_path = "Assets/Maps/NewTest.txt";
-        next_song_path = "Music/THE-PRIMALS";
-
-        string map = File.ReadAllText(next_map_path);
-        StageController.map = map;
-
-        AudioClip audioClip = Resources.Load<AudioClip>(next_song_path);
-        StageController.musicClip = audioClip;
-
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 2);
     }
 }

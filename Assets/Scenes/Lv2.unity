@@ -1264,7 +1264,7 @@ MonoBehaviour:
   laneY2: 2
   startX: 0
   endX: -5
-  map: 
+  map: {fileID: 4900000, guid: dd35857a303691f46b9208ec707ac6f5, type: 3}
   spawnpoint: {fileID: 1094896439}
   notePressWindow: 0.4
   combo: 0
