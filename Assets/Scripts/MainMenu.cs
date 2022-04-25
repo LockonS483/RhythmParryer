@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
     
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Dialogue");
         //GameStateManager.Instance.SetState(GameState.Gameplay);
     }
 
