@@ -27,6 +27,7 @@ public class MusicNote : MonoBehaviour
 
     public GameObject rootVisual;
     public Conductor c;
+    public bool isHit;
     public void Initialize(float posY, float sX, float removeX, float beat, float track, float eBeat, NoteTypes nt){
         this.startY = posY;
         this.startX = sX;
@@ -100,6 +101,7 @@ public class MusicNote : MonoBehaviour
     }
 
     public void Hit(){
+        isHit = true;
         Instantiate(fxPrefab, new Vector3(endX, transform.position.y, transform.position.z), Quaternion.identity);
 
         if(noteType == NoteTypes.single || noteType == NoteTypes.hazard)

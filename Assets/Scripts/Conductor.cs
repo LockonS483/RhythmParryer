@@ -63,6 +63,10 @@ public class Conductor : MonoBehaviour
     float endTimer = 2.0f;
     float endMarker;
     float hzMod = 1; // modifier for hitting hazards
+
+    float[] holdTimer = new float[]{0f, 0f};
+    float holdInterval = 0.2f;
+
     void Awake(){
         instance = this;
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -167,7 +171,17 @@ public class Conductor : MonoBehaviour
         if(spawnedNotes[spawnedNotesInd].beat < songPosInBeats - notePressWindow){
             spawnedNotesInd++;
         }
-        
+
+        for(int i = 0; i<2; i++){
+            if(heldTracks[i]){
+                if(holdTimer[i] <= 0){
+                    holdTimer[i] = holdInterval;
+                    combo++;
+                    hitAudio.Play();
+                }
+                holdTimer[i] -= Time.deltaTime;
+            }
+        }
     }
 
     public float PosFromBeat(float beat){ //I actually don't know what this does but it is never called. Leaving this in just because
@@ -224,10 +238,12 @@ public class Conductor : MonoBehaviour
         for(int i=0; i<6; i++){
             if((spawnedNotesInd+i) >= (spawnedNotes.Count)) continue;
             if(spawnedNotes[spawnedNotesInd+i] == null) continue;
+            if(spawnedNotes[spawnedNotesInd+i].isHit) continue;
 
             if(spawnedNotes[spawnedNotesInd+i].track == track){
                 //print("right track: " + track.ToString());
                 //print("diff: " + Mathf.Abs(spawnedNotes[spawnedNotesInd+i].beat - songPosInBeats).ToString());
+
                 if (Mathf.Abs(spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats) <= notePressWindow){
                     spawnedNotes[spawnedNotesInd + i].Hit();
                     hitAccuracy = spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats;
