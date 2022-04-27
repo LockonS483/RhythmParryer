@@ -106,7 +106,8 @@ public class Conductor : MonoBehaviour
         score = 0;
         combo = 0;
         Invoke("StartMusic", songPlayOffset);
-        
+
+        GameObject.Find("EndScene").GetComponent<Canvas>().enabled = false;
     }
 
     void StartMusic(){
@@ -116,6 +117,12 @@ public class Conductor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if (GameObject.Find("EndScene").GetComponent<Canvas>().enabled == false) { // for testing
+        //     GameObject.Find("EndScene").GetComponent<Canvas>().enabled = true;
+        //     GameObject.Find("EndScene").GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
+        //     print(GameObject.Find("EndScene").GetComponent<Canvas>().enabled);
+        // }
+
         //moving the player
         Vector3 playerPos = new Vector3(-5.5f, transform.position.y, 0);
         if(currentTrack == 0){
@@ -160,6 +167,8 @@ public class Conductor : MonoBehaviour
                 endTimer -= Time.deltaTime;
             }
             else {
+                print("bruh enabled");
+                // GameObject.Find("EndScene").GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
                 GameObject.Find("EndScene").GetComponent<Canvas>().enabled = true;
             }
         }

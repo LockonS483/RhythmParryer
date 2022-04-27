@@ -10,6 +10,7 @@ using TMPro;
 // <a href="https://www.freepik.com/vectors/hex-background">Hex background vector created by coolvector - www.freepik.com</a>
 public class EndScene : MonoBehaviour
 {
+    public bool firstLoad = true;
      public Text perfect_count;
     public Text great_count;
     public Text ok_count;
@@ -28,6 +29,10 @@ public class EndScene : MonoBehaviour
     
     void Update()
     {
+                if (firstLoad == true && endSceneUI.GetComponent<Canvas>().enabled) {
+            endSceneUI.GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
+            firstLoad = false;
+        }
         if (endSceneUI.GetComponent<Canvas>().enabled) {
             perfect_count.text = "Perfect: " + Conductor.instance.rStats.hitCounts[0].ToString();
             great_count.text = "Great: " + Conductor.instance.rStats.hitCounts[1].ToString();
@@ -43,12 +48,16 @@ public class EndScene : MonoBehaviour
     void Start()
     {
         // endSceneUI = GameObject.Find("Canvas");
-        endSceneUI.GetComponent<Canvas>().enabled = false;
+        // endSceneUI.GetComponent<Canvas>().enabled = false;
+        // endSceneUI.GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
+                        // GameObject.Find("EndScene").GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
+
         //0:perfect, 1:great, 2:ok, 3:bad, 4:miss
 
     }
     public void Restart() {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        firstLoad = true;
     }
     public void NextScene()
     {
@@ -61,6 +70,7 @@ public class EndScene : MonoBehaviour
         if(SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings)
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex+1);
         //GameStateManager.Instance.SetState(GameState.Gameplay);
+        firstLoad = true;
     }
     public void Resume()
     {
