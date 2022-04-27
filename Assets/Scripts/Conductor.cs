@@ -51,7 +51,7 @@ public class Conductor : MonoBehaviour
 
     List<MusicNote> spawnedNotes;
     int spawnedNotesInd;
-    int currentTrack = 0;
+    public int currentTrack = 0;
     bool[] heldTracks= new bool[]{false, false};
     MusicNote[] heldNotes = new MusicNote[2];
     int lastanim;
@@ -65,7 +65,7 @@ public class Conductor : MonoBehaviour
     float hzMod = 1; // modifier for hitting hazards
 
     float[] holdTimer = new float[]{0f, 0f};
-    float holdInterval = 0.2f;
+    float holdInterval = 0.13f;
 
     void Awake(){
         instance = this;
@@ -174,12 +174,15 @@ public class Conductor : MonoBehaviour
 
         for(int i = 0; i<2; i++){
             if(heldTracks[i]){
-                if(holdTimer[i] <= 0){
-                    holdTimer[i] = holdInterval;
-                    combo++;
-                    hitAudio.Play();
+                if(heldNotes[i] != null){
+                    if(holdTimer[i] <= 0){
+                        holdTimer[i] = holdInterval;
+                        combo++;
+                        hitAudio.Play();
+                    }
                 }
-                holdTimer[i] -= Time.deltaTime;
+                if(holdTimer[i] > 0)
+                    holdTimer[i] -= Time.deltaTime;
             }
         }
     }
@@ -284,10 +287,12 @@ public class Conductor : MonoBehaviour
                     spawnedNotes[spawnedNotesInd + i].Hit();
                     hitAccuracy = spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats;
 
-                    heldTracks[track] = true;
-                    heldNotes[track] = spawnedNotes[spawnedNotesInd + i];
-                    heldNotes[track].isHeld = true;
-                    heldNotes[track].rootVisual.SetActive(false);
+                    if(spawnedNotes[spawnedNotesInd + i].noteType == NoteTypes.hold){
+                        heldTracks[track] = true;
+                        heldNotes[track] = spawnedNotes[spawnedNotesInd + i];
+                        heldNotes[track].isHeld = true;
+                        heldNotes[track].rootVisual.SetActive(false);
+                    }
 
                     break;
                 }
@@ -300,6 +305,11 @@ public class Conductor : MonoBehaviour
         heldTracks[track] = false;
         if(heldNotes[track] != null){
             heldNotes[track].isHeld = false;
+            if (Mathf.Abs(heldNotes[track].endBeat - songPosInBeats) > notePressWindow){
+                //break combo
+                this.hitAccuracy = 0.45f;
+                this.rStats.hitCounts[4] += 1;
+            }
         }
     }
 

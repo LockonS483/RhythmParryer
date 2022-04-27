@@ -90,7 +90,7 @@ public class MusicNote : MonoBehaviour
         if(noteType == NoteTypes.hazard){
             if(transform.position.x < endX - 3){
                 // miss if beyond the end (same done for hold note start)
-                if (c.playerGO.transform.position.y == transform.position.y) {
+                if (Conductor.instance.currentTrack == this.track) {
                     Conductor.instance.hitAccuracy = 0.45f;
                     Conductor.instance.rStats.hitCounts[4] += 1;
                 }
