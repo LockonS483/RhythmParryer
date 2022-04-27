@@ -10,11 +10,14 @@ public class DialogueManager : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI nameText;
     public TMPro.TextMeshProUGUI dialogueText;
+    public GameObject dialogueCanvas;
+    private Animator anim;
     private Queue<string> sentences;
 
     void Awake()
     {
         sentences = new Queue<string>();
+        anim = dialogueCanvas.GetComponent<Animator>();
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -44,6 +47,7 @@ public class DialogueManager : MonoBehaviour
         
         string sentence = sentences.Dequeue();
         dialogueText.text = sentence;
+        anim.Play("Dialogue_anim_anim",  -1, 0f);
     }
 
     void EndDialogue()
