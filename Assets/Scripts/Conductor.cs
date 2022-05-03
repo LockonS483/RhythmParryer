@@ -216,6 +216,8 @@ public class Conductor : MonoBehaviour
         print("songOffset:" + offset);
         for(int i=1; i<maplines.Length; i++){
             string[] nn = maplines[i].Split(' ');
+            if (nn[0].Contains("/") || nn.Length==1)
+                continue;
             float tx = float.Parse(nn[0]);
             float ty = float.Parse(nn[2]) + offset;
             //print(tx + " " + ty);

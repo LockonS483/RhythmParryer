@@ -1125,7 +1125,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1f1903c0e7ab48043a9170c7cd43fab6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9b799bd2589f5d0479a730cbe4942ba9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.05
   m_Pitch: 1
@@ -1264,8 +1264,9 @@ MonoBehaviour:
   laneY2: 2
   startX: 0
   endX: -5
-  map: {fileID: 4900000, guid: dd35857a303691f46b9208ec707ac6f5, type: 3}
+  map: {fileID: 4900000, guid: 4b6e41bee08c13548827692d880b4eca, type: 3}
   spawnpoint: {fileID: 1094896439}
+  currentTrack: 0
   notePressWindow: 0.4
   combo: 0
   score: 0
@@ -4299,6 +4300,7 @@ GameObject:
   - component: {fileID: 1642527921}
   - component: {fileID: 1642527916}
   - component: {fileID: 1642527917}
+  - component: {fileID: 1642527918}
   m_Layer: 5
   m_Name: EndScene
   m_TagString: Untagged
@@ -4318,6 +4320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e689e51e874543c5acc3275f329429b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstLoad: 1
   perfect_count: {fileID: 735881952}
   great_count: {fileID: 2016715680}
   ok_count: {fileID: 563164664}
@@ -4345,6 +4348,25 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!95 &1642527918
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642527915}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5fbfea5ad38ea4a6998afe1ce11ec84e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!223 &1642527921
 Canvas:
   m_ObjectHideFlags: 0
