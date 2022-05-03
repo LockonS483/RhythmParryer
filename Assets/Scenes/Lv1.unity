@@ -3578,6 +3578,7 @@ GameObject:
   - component: {fileID: 1343679545}
   - component: {fileID: 1343679544}
   - component: {fileID: 1343679543}
+  - component: {fileID: 1343679548}
   m_Layer: 5
   m_Name: AccuracyText
   m_TagString: Untagged
@@ -3686,6 +3687,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1343679548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343679542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b746307731005446a04c3812921c887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  hitCounts: 0000000000000000000000000000000000000000
+  highestCombo: 0
 --- !u!1 &1356366571
 GameObject:
   m_ObjectHideFlags: 0
@@ -4545,6 +4561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e689e51e874543c5acc3275f329429b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstLoad: 1
   perfect_count: {fileID: 735881952}
   great_count: {fileID: 2016715680}
   ok_count: {fileID: 563164664}
