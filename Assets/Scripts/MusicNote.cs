@@ -57,6 +57,7 @@ public class MusicNote : MonoBehaviour
                 // miss if beyond the end (same done for hold note start)
                 Conductor.instance.hitAccuracy = 0.45f;
                 Conductor.instance.rStats.hitCounts[4] += 1;
+                c.combo = 0;
                 Destroy(gameObject);
             }
             return;
@@ -79,6 +80,7 @@ public class MusicNote : MonoBehaviour
                 }else{
                     //GameObject.Find("Manager").GetComponent<Conductor>().hitAccuracy = 1;
                     c.rStats.hitCounts[4] += 1;
+                    c.combo = 0;
                     Destroy(gameObject);
                 }
             }

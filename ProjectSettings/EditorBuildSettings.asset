@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Lv3.unity
     guid: c237cf603024ebe46bb5cf4f604fca00
   - enabled: 1
+    path: Assets/Scenes/Lv4.unity
+    guid: f96be12d6cacd73489bb24ef83305b3b
+  - enabled: 1
     path: Assets/Scenes/Dialogue.unity
     guid: 7c635dadbae4d2143a838f7d9bbb4938
   m_configObjects: {}
