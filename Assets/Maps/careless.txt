@@ -1,4 +1,4 @@
-{82 0 115.608 "Y2Mate.is - Rhythm Doctor OST - wish i could care less (ft. Yeo)-Po3ELarJFbM-160k-1650214319137" }
+{82 -0.2 115.608 "Y2Mate.is - Rhythm Doctor OST - wish i could care less (ft. Yeo)-Po3ELarJFbM-160k-1650214319137" }
 0 SINGLE 12.82846
 0 SINGLE 13.64482
 1 SINGLE 13.90722
