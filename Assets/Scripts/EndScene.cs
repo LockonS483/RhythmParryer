@@ -46,8 +46,8 @@ public class EndScene : MonoBehaviour
             ok_count.text = "Ok: " + Conductor.instance.rStats.hitCounts[2].ToString();
             bad_count.text = "Bad: " + Conductor.instance.rStats.hitCounts[3].ToString();
             miss_count.text = "Miss: " + Conductor.instance.rStats.hitCounts[4].ToString();
-            score.text = "Score: " + Conductor.instance.score.ToString();
-            accuracy.text = ""; /*+ Conductor.instance.hitAccuracy.ToString(); // accuracy*/
+            score.text = "Total Score: " + Conductor.instance.score.ToString();
+            accuracy.text = "Target Score: " + Conductor.instance.targetScore.ToString();
             max_combo.text = "Maximum Combo: " + Conductor.instance.rStats.highestCombo.ToString(); // max combo
         }
     }    

@@ -1,4 +1,4 @@
-{93 0.18 130.586 "Im_My_Own_Master_Now" }
+{93 0.06 130.586 "Im_My_Own_Master_Now" }
 1 SINGLE 3.424463
 1 SINGLE 3.655929
 1 SINGLE 3.887396

@@ -96,8 +96,6 @@ public class Conductor : MonoBehaviour
             AudioClip audioClip = StageController.musicClip;
             musicSource.clip = audioClip;
         }*/
-
-        print(musicSource);
         
         dspSongTime = (float)AudioSettings.dspTime;
         spawnedNotes = new List<MusicNote>();
@@ -108,9 +106,8 @@ public class Conductor : MonoBehaviour
         spawnedNotesInd = 0;
         score = 0;
         combo = 0;
-        Invoke("StartMusic", songPlayOffset);
-
         GameObject.Find("EndScene").GetComponent<Canvas>().enabled = false;
+        Invoke("StartMusic", songPlayOffset);
     }
 
     void StartMusic(){
