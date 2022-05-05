@@ -84,8 +84,10 @@ public class MusicNote : MonoBehaviour
                     //currently being held?
                 }else{
                     //GameObject.Find("Manager").GetComponent<Conductor>().hitAccuracy = 1;
+                    /*
                     c.rStats.hitCounts[4] += 1;
                     c.combo = 0;
+                    */
                     Destroy(gameObject);
                 }
             }
@@ -95,7 +97,7 @@ public class MusicNote : MonoBehaviour
             return;
         }
         if(noteType == NoteTypes.hazard){
-            if(transform.position.x < endX - 1.5f){
+            if(transform.position.x < endX - 3f){
                 // miss if beyond the end (same done for hold note start)
                 if (Conductor.instance.currentTrack == this.track) {
                     Conductor.instance.hitAccuracy = 0.45f;

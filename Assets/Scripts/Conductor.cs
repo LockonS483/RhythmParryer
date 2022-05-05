@@ -67,7 +67,7 @@ public class Conductor : MonoBehaviour
     float hzMod = 1; // modifier for hitting hazards
 
     float[] holdTimer = new float[]{0f, 0f};
-    float holdInterval = 0.13f;
+    float holdInterval = 0.07f;
 
     void Awake(){
         instance = this;
@@ -99,7 +99,7 @@ public class Conductor : MonoBehaviour
         
         dspSongTime = (float)AudioSettings.dspTime;
         spawnedNotes = new List<MusicNote>();
-        
+        Invoke("StartMusic", songPlayOffset);
         GenerateNotes();
         secPerBeat = 60f / songBpm;
         nextIndex = 0;
@@ -107,7 +107,6 @@ public class Conductor : MonoBehaviour
         score = 0;
         combo = 0;
         GameObject.Find("EndScene").GetComponent<Canvas>().enabled = false;
-        Invoke("StartMusic", songPlayOffset);
     }
 
     void StartMusic(){
@@ -335,10 +334,11 @@ public class Conductor : MonoBehaviour
         heldTracks[track] = false;
         if(heldNotes[track] != null){
             heldNotes[track].isHeld = false;
-            if (Mathf.Abs(heldNotes[track].endBeat - songPosInBeats) > (notePressWindow * 2)){
+            if (Mathf.Abs(heldNotes[track].endBeat - songPosInBeats) > (notePressWindow * 1f)){
                 //break combo
                 this.hitAccuracy = 0.45f;
                 this.rStats.hitCounts[4] += 1;
+                Destroy(heldNotes[track].gameObject);
             }
         }
     }
