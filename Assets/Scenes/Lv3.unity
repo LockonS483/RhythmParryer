@@ -4872,9 +4872,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 769541702}
-  shakeDuration: 0.08
-  shakeMagnitude: 0.05
-  dampingSpeed: 0.35
+  shakeDuration: 0.1
+  shakeMagnitude: 0.15
+  dampingSpeed: 0.3
 --- !u!114 &1753384034
 MonoBehaviour:
   m_ObjectHideFlags: 0
