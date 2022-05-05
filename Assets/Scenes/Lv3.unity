@@ -4934,7 +4934,7 @@ MonoBehaviour:
   notePressWindow: 0.4
   combo: 0
   score: 0
-  targetScore: 100000
+  targetScore: 175000
 --- !u!82 &1753384036
 AudioSource:
   m_ObjectHideFlags: 0

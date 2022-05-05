@@ -195,9 +195,10 @@ public class Conductor : MonoBehaviour
             else {
                 // GameObject.Find("EndScene").GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f
                 if (!done) {
-                    print(spawnedNotes.Count);
+                    print(rStats.highestCombo);
+                    print((float)score * ((float)rStats.highestCombo / (float)spawnedNotes.Count));
                     print(score);
-                    score = score + Mathf.RoundToInt(score * (rStats.highestCombo / spawnedNotes.Count));
+                    score = score + (int)((float)score * ((float)rStats.highestCombo / (float)spawnedNotes.Count));
                     print(score);
                     GameObject.Find("EndScene").GetComponent<Canvas>().enabled = true;
                     done = true;
@@ -312,7 +313,7 @@ public class Conductor : MonoBehaviour
                             rStats.hitCounts[3] += 1;
                             break;
                     }
-                    UnityEngine.Debug.LogFormat("{0} {1} {2} {3} {4}", rStats.hitCounts[0], rStats.hitCounts[1], rStats.hitCounts[2], rStats.hitCounts[3], rStats.hitCounts[4]);
+                    //UnityEngine.Debug.LogFormat("{0} {1} {2} {3} {4}", rStats.hitCounts[0], rStats.hitCounts[1], rStats.hitCounts[2], rStats.hitCounts[3], rStats.hitCounts[4]);
                     rStats.score = score;
                     camshake.AddShake();
                     hitAudio.Play();
