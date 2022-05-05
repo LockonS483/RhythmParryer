@@ -49,8 +49,13 @@ public class MusicNote : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        transform.position = new Vector3(startX + (endX - startX) * (1f - (beat - Conductor.songPosInBeats)), transform.position.y, transform.position.z);
+    {   
+        
+        if(noteType == NoteTypes.hazard){
+            transform.position = new Vector3(startX + (endX - startX) * (1f - (beat - Conductor.songPosInBeats) * 2f), transform.position.y, transform.position.z);
+        }else{
+            transform.position = new Vector3(startX + (endX - startX) * (1f - (beat - Conductor.songPosInBeats)), transform.position.y, transform.position.z);
+        }
         if (noteType == NoteTypes.single)
         {
             if(transform.position.x < endX - 3){
@@ -90,7 +95,7 @@ public class MusicNote : MonoBehaviour
             return;
         }
         if(noteType == NoteTypes.hazard){
-            if(transform.position.x < endX - 3){
+            if(transform.position.x < endX - 1.5f){
                 // miss if beyond the end (same done for hold note start)
                 if (Conductor.instance.currentTrack == this.track) {
                     Conductor.instance.hitAccuracy = 0.45f;

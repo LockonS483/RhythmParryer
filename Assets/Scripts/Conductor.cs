@@ -48,12 +48,13 @@ public class Conductor : MonoBehaviour
     public TextAsset map;
     public Transform spawnpoint;
 
-
+    [HideInInspector]
     List<MusicNote> spawnedNotes;
     int spawnedNotesInd;
     public int currentTrack = 0;
     bool[] heldTracks= new bool[]{false, false};
     MusicNote[] heldNotes = new MusicNote[2];
+    public GameObject[] holdParticles;
     int lastanim;
     public float notePressWindow = 0.06f;
 
@@ -160,6 +161,29 @@ public class Conductor : MonoBehaviour
             spawnedNotes.Add(m);
             nextIndex++;
         }
+        
+        for(int i = 0; i<2; i++){
+            if(heldTracks[i]){
+                if(heldNotes[i]){
+                    holdParticles[i].SetActive(true);
+                    if(holdTimer[i] <= 0){
+                        holdTimer[i] = holdInterval;
+                        combo++;
+                        hitAudio.Play();
+                    }
+                }else{
+                    holdParticles[i].SetActive(false);
+                }
+                
+                if(holdTimer[i] > 0)
+                    holdTimer[i] -= Time.deltaTime;
+            }else{
+                for(int pi=i*2; pi<(i*2+2); pi++){
+                    holdParticles[i].SetActive(false);
+                }
+            }
+        }
+
         //print(musicSource.time);
         if (musicSource.time<=0 && spawnedNotes.Count>0) {
             if (endTimer > 0)
@@ -173,6 +197,7 @@ public class Conductor : MonoBehaviour
             }
         }
 
+
         if (spawnedNotes.Count < 1 || spawnedNotesInd >= spawnedNotes.Count) {
             return;
         }
@@ -181,19 +206,7 @@ public class Conductor : MonoBehaviour
             spawnedNotesInd++;
         }
 
-        for(int i = 0; i<2; i++){
-            if(heldTracks[i]){
-                if(heldNotes[i] != null){
-                    if(holdTimer[i] <= 0){
-                        holdTimer[i] = holdInterval;
-                        combo++;
-                        hitAudio.Play();
-                    }
-                }
-                if(holdTimer[i] > 0)
-                    holdTimer[i] -= Time.deltaTime;
-            }
-        }
+        
     }
 
     public float PosFromBeat(float beat){ //I actually don't know what this does but it is never called. Leaving this in just because
@@ -316,7 +329,7 @@ public class Conductor : MonoBehaviour
         heldTracks[track] = false;
         if(heldNotes[track] != null){
             heldNotes[track].isHeld = false;
-            if (Mathf.Abs(heldNotes[track].endBeat - songPosInBeats) > notePressWindow){
+            if (Mathf.Abs(heldNotes[track].endBeat - songPosInBeats) > (notePressWindow * 2)){
                 //break combo
                 this.hitAccuracy = 0.45f;
                 this.rStats.hitCounts[4] += 1;
