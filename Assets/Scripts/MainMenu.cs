@@ -27,4 +27,8 @@ public class MainMenu : MonoBehaviour
     public void StartStage3() {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 3);
     }
+
+    public void StartStage4() {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 4);
+    }
 }
