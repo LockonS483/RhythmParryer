@@ -16,7 +16,7 @@ public class CameraShake : MonoBehaviour
     void Start()
     {
         camPos = camera.position;
-        shakeDuration = 60f / Conductor.instance.songBpm / 2;
+        //shakeDuration = 60f / Conductor.instance.songBpm / 2;
     }
 
     // Update is called once per frame

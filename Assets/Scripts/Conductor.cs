@@ -57,7 +57,7 @@ public class Conductor : MonoBehaviour
     public GameObject[] holdParticles;
     int lastanim;
     public float notePressWindow = 0.06f;
-
+    bool done;
     public int combo;
     public int score;
     public int targetScore;
@@ -75,6 +75,7 @@ public class Conductor : MonoBehaviour
         GameStateManager.Instance.SetState(GameState.Gameplay);
         var rObj = Instantiate(recorder);
         rStats = rObj.GetComponent<Recorder>();
+        done = false;
     }
 
     void OnDestroy()
@@ -192,10 +193,15 @@ public class Conductor : MonoBehaviour
                 endTimer -= Time.deltaTime;
             }
             else {
-                print(score);
                 // GameObject.Find("EndScene").GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f
-                score = score + (score * (int)(rStats.highestCombo / spawnedNotes.Count));
-                GameObject.Find("EndScene").GetComponent<Canvas>().enabled = true;
+                if (!done) {
+                    print(spawnedNotes.Count);
+                    print(score);
+                    score = score + Mathf.RoundToInt(score * (rStats.highestCombo / spawnedNotes.Count));
+                    print(score);
+                    GameObject.Find("EndScene").GetComponent<Canvas>().enabled = true;
+                    done = true;
+                }
             }
         }
 
