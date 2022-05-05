@@ -2051,7 +2051,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &544389973
 RectTransform:
@@ -4872,6 +4872,7 @@ MonoBehaviour:
   notePressWindow: 0.4
   combo: 0
   score: 0
+  targetScore: 275000
 --- !u!82 &1753384036
 AudioSource:
   m_ObjectHideFlags: 0

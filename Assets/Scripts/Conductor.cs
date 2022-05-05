@@ -60,6 +60,7 @@ public class Conductor : MonoBehaviour
 
     public int combo;
     public int score;
+    public int targetScore;
     int scoreAmnt = 100;
     float endTimer = 2.0f;
     float endMarker;
@@ -191,8 +192,9 @@ public class Conductor : MonoBehaviour
                 endTimer -= Time.deltaTime;
             }
             else {
-                print("bruh enabled");
-                // GameObject.Find("EndScene").GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
+                print(score);
+                // GameObject.Find("EndScene").GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f
+                score = score + (score * (int)(rStats.highestCombo / spawnedNotes.Count));
                 GameObject.Find("EndScene").GetComponent<Canvas>().enabled = true;
             }
         }

@@ -29,11 +29,18 @@ public class EndScene : MonoBehaviour
     
     void Update()
     {
-                if (firstLoad == true && endSceneUI.GetComponent<Canvas>().enabled) {
+        if (firstLoad == true && endSceneUI.GetComponent<Canvas>().enabled) {
             endSceneUI.GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
             firstLoad = false;
         }
         if (endSceneUI.GetComponent<Canvas>().enabled) {
+            var c = GameObject.Find("Manager").GetComponent<Conductor>();
+            if (c.score < c.targetScore)
+            {
+                var g = GameObject.Find("NextButton");
+                if(g)
+                    GameObject.Find("NextButton").SetActive(false);
+            }
             perfect_count.text = "Perfect: " + Conductor.instance.rStats.hitCounts[0].ToString();
             great_count.text = "Great: " + Conductor.instance.rStats.hitCounts[1].ToString();
             ok_count.text = "Ok: " + Conductor.instance.rStats.hitCounts[2].ToString();
@@ -50,10 +57,10 @@ public class EndScene : MonoBehaviour
         // endSceneUI = GameObject.Find("Canvas");
         // endSceneUI.GetComponent<Canvas>().enabled = false;
         // endSceneUI.GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
-                        // GameObject.Find("EndScene").GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
+        // GameObject.Find("EndScene").GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
 
         //0:perfect, 1:great, 2:ok, 3:bad, 4:miss
-
+        
     }
     public void Restart() {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
@@ -61,6 +68,7 @@ public class EndScene : MonoBehaviour
     }
     public void NextScene()
     {
+
         /*string map = File.ReadAllText(next_map_path);
         StageController.map = map;
 
