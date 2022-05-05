@@ -17,18 +17,18 @@ public class MainMenu : MonoBehaviour
     }
 
     public void StartStage1() {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadSceneAsync("Lv1");
     }
 
     public void StartStage2() {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadSceneAsync("Lv2");
     }
 
     public void StartStage3() {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 3);
+        SceneManager.LoadSceneAsync("Lv3");
     }
 
     public void StartStage4() {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 4);
+        SceneManager.LoadSceneAsync("Lv4");
     }
 }
