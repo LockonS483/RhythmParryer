@@ -4866,6 +4866,7 @@ MonoBehaviour:
   map: {fileID: 4900000, guid: eab7d7a739f06fa4d949a25f962cb9ad, type: 3}
   spawnpoint: {fileID: 1887348550}
   currentTrack: 0
+  heldTracks: 0000
   holdParticles:
   - {fileID: 1421747298}
   - {fileID: 1915809832}
@@ -4873,6 +4874,7 @@ MonoBehaviour:
   combo: 0
   score: 0
   targetScore: 315000
+  holdGhost: {fileID: 8948784693323551032, guid: 70467953769ddb54aabace8a6f9c3586, type: 3}
 --- !u!82 &1753384036
 AudioSource:
   m_ObjectHideFlags: 0

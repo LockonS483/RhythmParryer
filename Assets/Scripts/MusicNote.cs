@@ -71,12 +71,12 @@ public class MusicNote : MonoBehaviour
             //line renderer pos
              //currently being held?
             if(transform.position.x >= endX){
-                lr.SetPosition(0, transform.position);
+                lr.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.1f));
             }else{
-                lr.SetPosition(0, new Vector3(endX, transform.position.y, transform.position.z));
+                lr.SetPosition(0, new Vector3(endX, transform.position.y, transform.position.z + 0.1f));
             }
             Vector3 endpos = new Vector3(startX + (endX - startX) * (1f - (beat - (Conductor.songPosInBeats - (endBeat - beat))) ), 
-                                transform.position.y, transform.position.z);
+                                transform.position.y, transform.position.z + 0.1f);
             lr.SetPosition(1, endpos);
 
             if(transform.position.x < endX - 3){

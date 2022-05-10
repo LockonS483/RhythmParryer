@@ -1267,6 +1267,7 @@ MonoBehaviour:
   map: {fileID: 4900000, guid: 009f34242e753e043ab85499af389cbb, type: 3}
   spawnpoint: {fileID: 1094896439}
   currentTrack: 0
+  heldTracks: 0000
   holdParticles:
   - {fileID: 1155933465}
   - {fileID: 1634145007}
@@ -1274,6 +1275,7 @@ MonoBehaviour:
   combo: 0
   score: 0
   targetScore: 0
+  holdGhost: {fileID: 8948784693323551032, guid: 70467953769ddb54aabace8a6f9c3586, type: 3}
 --- !u!114 &272232603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,7 +1530,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -8211,7 +8213,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -8857,7 +8859,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

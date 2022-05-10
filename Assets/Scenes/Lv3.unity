@@ -1139,7 +1139,7 @@ MonoBehaviour:
   sController: {fileID: 0}
   songBpm: 83
   secPerBeat: 0
-  firstBeatOffset: 0
+  firstBeatOffset: -0.1
   dspSongTime: 0
   musicSource: {fileID: 498732643}
   notes: []
@@ -1157,6 +1157,7 @@ MonoBehaviour:
   map: {fileID: 4900000, guid: 97271809e32ab744782337da6089a009, type: 3}
   spawnpoint: {fileID: 1747647247}
   currentTrack: 0
+  heldTracks: 0000
   holdParticles:
   - {fileID: 1519269037}
   - {fileID: 1315702893}
@@ -1164,6 +1165,7 @@ MonoBehaviour:
   combo: 0
   score: 0
   targetScore: 0
+  holdGhost: {fileID: 8948784693323551032, guid: 70467953769ddb54aabace8a6f9c3586, type: 3}
 --- !u!82 &498732643
 AudioSource:
   m_ObjectHideFlags: 0

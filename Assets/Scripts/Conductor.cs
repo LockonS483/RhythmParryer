@@ -52,7 +52,7 @@ public class Conductor : MonoBehaviour
     List<MusicNote> spawnedNotes;
     int spawnedNotesInd;
     public int currentTrack = 0;
-    bool[] heldTracks= new bool[]{false, false};
+    public bool[] heldTracks= new bool[]{false, false};
     MusicNote[] heldNotes = new MusicNote[2];
     public GameObject[] holdParticles;
     int lastanim;
@@ -68,6 +68,8 @@ public class Conductor : MonoBehaviour
 
     float[] holdTimer = new float[]{0f, 0f};
     float holdInterval = 0.07f;
+
+    public HoldGhost holdGhost;
 
     void Awake(){
         instance = this;
@@ -318,6 +320,11 @@ public class Conductor : MonoBehaviour
 
                     if(spawnedNotes[spawnedNotesInd + i].noteType == NoteTypes.hold){
                         heldTracks[track] = true;
+                        if(holdGhost != null){
+                            float py = track == 0 ? laneY1 : laneY2;
+                            HoldGhost tgh = Instantiate(holdGhost, new Vector3(playerGO.transform.position.x, py, 0), Quaternion.identity);
+                            tgh.track = track;
+                        }
                         heldNotes[track] = spawnedNotes[spawnedNotesInd + i];
                         heldNotes[track].isHeld = true;
                         heldNotes[track].rootVisual.SetActive(false);
