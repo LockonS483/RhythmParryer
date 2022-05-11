@@ -75,8 +75,24 @@ public class EndScene : MonoBehaviour
         AudioClip audioClip = Resources.Load<AudioClip>(next_song_path);
         StageController.musicClip = audioClip;
         */
-        if(SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings)
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex+1);
+        int ind = SceneManager.GetActiveScene().buildIndex;
+        switch (ind) {
+            case 2:
+                SceneManager.LoadSceneAsync(3);
+                break;
+            case 3:
+                SceneManager.LoadSceneAsync(4);
+                break;
+            case 4:
+                SceneManager.LoadSceneAsync(5);
+                break;
+            case 5:
+                SceneManager.LoadSceneAsync(6);
+                break;
+            case 6:
+                SceneManager.LoadSceneAsync(0);
+                break;
+        }
         //GameStateManager.Instance.SetState(GameState.Gameplay);
         firstLoad = true;
     }

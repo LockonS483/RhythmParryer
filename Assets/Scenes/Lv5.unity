@@ -1349,7 +1349,7 @@ MonoBehaviour:
   notePressWindow: 0.4
   combo: 0
   score: 0
-  targetScore: 50000
+  targetScore: 200000
   holdGhost: {fileID: 8948784693323551032, guid: 70467953769ddb54aabace8a6f9c3586, type: 3}
 --- !u!114 &272232603
 MonoBehaviour:
