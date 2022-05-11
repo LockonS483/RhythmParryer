@@ -283,7 +283,7 @@ public class Conductor : MonoBehaviour
                     spawnedNotes[spawnedNotesInd + i].Hit();
                     hitAccuracy = spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats;
                     combo += 1;
-                    if (combo % 100 == 0) {
+                    if (combo % 5 == 0) {
                         anim.Play();
                     }
                     if (combo > rStats.highestCombo)
