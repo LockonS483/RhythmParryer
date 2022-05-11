@@ -1378,8 +1378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 519420032}
-  shakeDuration: 0.1
-  shakeMagnitude: 0.25
+  shakeDuration: 0.05
+  shakeMagnitude: 0.2
   dampingSpeed: 0.3
 --- !u!1 &391341453
 GameObject:
