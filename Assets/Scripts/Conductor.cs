@@ -62,7 +62,7 @@ public class Conductor : MonoBehaviour
     public int score;
     public int targetScore;
     int scoreAmnt = 100;
-    float endTimer = 2.0f;
+    float endTimer = 0.5f;
     float endMarker;
     float hzMod = 1; // modifier for hitting hazards
 
@@ -283,7 +283,7 @@ public class Conductor : MonoBehaviour
                     spawnedNotes[spawnedNotesInd + i].Hit();
                     hitAccuracy = spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats;
                     combo += 1;
-                    if (combo % 5 == 0) {
+                    if (combo % 100 == 0 && combo!=0) {
                         anim.Play();
                     }
                     if (combo > rStats.highestCombo)
