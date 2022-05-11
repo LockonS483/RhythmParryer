@@ -346,6 +346,7 @@ public class Conductor : MonoBehaviour
                 //break combo
                 this.hitAccuracy = 0.45f;
                 this.rStats.hitCounts[4] += 1;
+                combo = 0;
                 Destroy(heldNotes[track].gameObject);
             }
         }

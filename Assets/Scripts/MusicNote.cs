@@ -85,7 +85,7 @@ public class MusicNote : MonoBehaviour
                 // miss if beyond the end (same done for hold note start)
                 Conductor.instance.hitAccuracy = 0.45f;
                 Conductor.instance.rStats.hitCounts[4] += 1;
-                c.combo = 0;
+                Conductor.instance.combo = 0;
                 Destroy(gameObject);
             }
             return;
@@ -129,6 +129,7 @@ public class MusicNote : MonoBehaviour
                 if (Conductor.instance.currentTrack == this.track) {
                     Conductor.instance.hitAccuracy = 0.45f;
                     Conductor.instance.rStats.hitCounts[4] += 1;
+                    Conductor.instance.combo = 0;
                 }
                 Destroy(gameObject);
             }
