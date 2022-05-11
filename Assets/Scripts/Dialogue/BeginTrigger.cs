@@ -20,7 +20,7 @@ public class BeginTrigger : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            SceneManager.LoadScene("Lv1");
+            SceneManager.LoadSceneAsync("Lv1");
         }
     }
 }
