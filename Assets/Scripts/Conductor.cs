@@ -70,7 +70,7 @@ public class Conductor : MonoBehaviour
     float holdInterval = 0.07f;
 
     public HoldGhost holdGhost;
-
+ Animation anim;
     void Awake(){
         instance = this;
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -88,6 +88,7 @@ public class Conductor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim = GameObject.Find("BGLazer").GetComponent<Animation>();
         /*print(StageController.musicClip);
         if (!StageController.musicClip) {
             //AudioSource musicSource = gameObject.AddComponent <AudioSource>() as AudioSource;
@@ -123,7 +124,7 @@ public class Conductor : MonoBehaviour
         //     GameObject.Find("EndScene").GetComponent<Animator>().Play("level_transition_anim_anim", -1, 0f);
         //     print(GameObject.Find("EndScene").GetComponent<Canvas>().enabled);
         // }
-
+        
         //moving the player
         Vector3 playerPos = new Vector3(-5.5f, transform.position.y, 0);
         if(currentTrack == 0){
@@ -282,9 +283,9 @@ public class Conductor : MonoBehaviour
                     spawnedNotes[spawnedNotesInd + i].Hit();
                     hitAccuracy = spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats;
                     combo += 1;
-                    // if (combo % 5 == 0) {
-                        // GameObject.Find("BGLazer").GetComponent<Animation>().Play("bglazer", -1, 0f);
-                    // }
+                    if (combo % 100 == 0) {
+                        anim.Play();
+                    }
                     if (combo > rStats.highestCombo)
                         rStats.highestCombo = combo;
                     //print("hitaccuracy: " + hitAccuracy.ToString());
