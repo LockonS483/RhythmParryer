@@ -324,6 +324,7 @@ public class Conductor : MonoBehaviour
                             float py = track == 0 ? laneY1 : laneY2;
                             HoldGhost tgh = Instantiate(holdGhost, new Vector3(playerGO.transform.position.x, py, 0), Quaternion.identity);
                             tgh.track = track;
+                            tgh.endBeat = spawnedNotes[spawnedNotesInd + i].endBeat;
                         }
                         heldNotes[track] = spawnedNotes[spawnedNotesInd + i];
                         heldNotes[track].isHeld = true;

@@ -15,6 +15,8 @@ public class MusicNote : MonoBehaviour
     public float endX;
     public float beat;
     public float endBeat;
+
+    float darkTriggerX = 6.8f;
     //public bool paused;
     public int track;
 
@@ -28,6 +30,12 @@ public class MusicNote : MonoBehaviour
     public GameObject rootVisual;
     public Conductor c;
     public bool isHit;
+    public SpriteRenderer[] triggerSprites;
+
+    bool wasTriggered;
+
+    public GameObject spawnFX;
+    public HitLine hitLine;
     public void Initialize(float posY, float sX, float removeX, float beat, float track, float eBeat, NoteTypes nt){
         this.startY = posY;
         this.startX = sX;
@@ -36,20 +44,35 @@ public class MusicNote : MonoBehaviour
         this.track = Mathf.RoundToInt(track);
         this.endBeat = eBeat;
         this.noteType = nt;
+        wasTriggered = false;
         
         transform.position = new Vector3(transform.position.x, startY, transform.position.z);
-        if(noteType == NoteTypes.hold){
-            lr = GetComponent<LineRenderer>();
-            lr.enabled = true;
-        }
+        
 
         c = GameObject.Find("Manager").GetComponent<Conductor>();
 
     }
 
+    void TriggerNote(){
+        if(noteType == NoteTypes.hold){
+            lr = GetComponent<LineRenderer>();
+            lr.enabled = true;
+        }
+        foreach(SpriteRenderer trigger in triggerSprites){
+            trigger.enabled = true;
+        }
+        //Debug.Log(GameObject.FindGameObjectWithTag("dparry").name);
+        GameObject.FindGameObjectWithTag("dparry").GetComponent<darkParryMove>().NoteCross(this.track);
+        GameObject.Instantiate(spawnFX, transform.position, Quaternion.identity);
+        wasTriggered = true;
+    }
+
     // Update is called once per frame
     void Update()
     {   
+        if(transform.position.x <= darkTriggerX && !wasTriggered){
+            TriggerNote();
+        }
         
         if(noteType == NoteTypes.hazard){
             transform.position = new Vector3(startX + (endX - startX) * (1f - (beat - Conductor.songPosInBeats) * 2f), transform.position.y, transform.position.z);
@@ -67,15 +90,19 @@ public class MusicNote : MonoBehaviour
             }
             return;
         }
-        if(noteType == NoteTypes.hold){
+        if(noteType == NoteTypes.hold && wasTriggered){
             //line renderer pos
-             //currently being held?
-            if(transform.position.x >= endX){
-                lr.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.1f));
-            }else{
-                lr.SetPosition(0, new Vector3(endX, transform.position.y, transform.position.z + 0.1f));
-            }
-            Vector3 endpos = new Vector3(startX + (endX - startX) * (1f - (beat - (Conductor.songPosInBeats - (endBeat - beat))) ), 
+            //currently being held?
+                if(transform.position.x >= endX){
+                    lr.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.1f));
+                }else{
+                    lr.SetPosition(0, new Vector3(endX, transform.position.y, transform.position.z + 0.1f));
+                }
+
+            float xClampCalc = startX + (endX - startX) * (1f - (beat - (Conductor.songPosInBeats - (endBeat - beat))));
+            xClampCalc = Mathf.Clamp(xClampCalc, endX, darkTriggerX);
+
+            Vector3 endpos = new Vector3(xClampCalc, 
                                 transform.position.y, transform.position.z + 0.1f);
             lr.SetPosition(1, endpos);
 
@@ -112,6 +139,12 @@ public class MusicNote : MonoBehaviour
     public void Hit(){
         isHit = true;
         Instantiate(fxPrefab, new Vector3(endX, transform.position.y, transform.position.z), Quaternion.identity);
+
+        if(hitLine){
+            HitLine hl = Instantiate(hitLine, Vector3.zero, Quaternion.identity);
+            Vector3 dpPos = GameObject.FindGameObjectWithTag("dparry").transform.position;
+            hl.Init(transform.position, dpPos);
+        }
 
         if(noteType == NoteTypes.single || noteType == NoteTypes.hazard)
             Destroy(gameObject);

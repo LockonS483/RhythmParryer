@@ -54,6 +54,12 @@ MonoBehaviour:
   noteType: 0
   isHeld: 0
   rootVisual: {fileID: 7586428971244957142}
+  c: {fileID: 0}
+  isHit: 0
+  triggerSprites:
+  - {fileID: 7586428971244957140}
+  spawnFX: {fileID: 646724388505346394, guid: e30a5c94b230fc54db375857573f704f, type: 3}
+  hitLine: {fileID: 71368655, guid: 6e731bdb0ec78aa488b6de71038863b5, type: 3}
 --- !u!1 &7586428971244957142
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +99,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7586428971244957142}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

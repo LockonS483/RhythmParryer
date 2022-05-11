@@ -14,5 +14,6 @@ public class PlayerAnims : MonoBehaviour
 
     public void PlayAnim(int ani){
         animator.Play(anims[ani], 0, 0f);
+        print("Playing " + ani.ToString());
     }
 }

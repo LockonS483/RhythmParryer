@@ -6,6 +6,7 @@ public class HoldGhost : MonoBehaviour
 {   
     public Transform spriteChild;
     public int track;
+    public float endBeat;
     public bool death = false;
     SpriteRenderer sr;
     Vector3 tPos = new Vector3(0,0,-1);
@@ -32,7 +33,7 @@ public class HoldGhost : MonoBehaviour
                 sr.color = a;
             }
         }
-        if(!Conductor.instance.heldTracks[track]){
+        if(!Conductor.instance.heldTracks[track] || Conductor.songPosInBeats >= endBeat){
             death = true;
         }
     }
