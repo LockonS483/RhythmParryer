@@ -282,6 +282,9 @@ public class Conductor : MonoBehaviour
                     spawnedNotes[spawnedNotesInd + i].Hit();
                     hitAccuracy = spawnedNotes[spawnedNotesInd + i].beat - songPosInBeats;
                     combo += 1;
+                    // if (combo % 5 == 0) {
+                        // GameObject.Find("BGLazer").GetComponent<Animation>().Play("bglazer", -1, 0f);
+                    // }
                     if (combo > rStats.highestCombo)
                         rStats.highestCombo = combo;
                     //print("hitaccuracy: " + hitAccuracy.ToString());
